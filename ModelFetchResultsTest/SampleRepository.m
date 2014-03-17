@@ -41,15 +41,15 @@ static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
 }
 
 - (void)randomize {
-    if (YES || rand() % 2 == 0) {
+    if (rand() % 2 == 0) {
         int sel = rand() % 3;
         if (sel == 0 && _items.count >= 2) {
             NSInteger oldIndex = rand() % _items.count;
+            NSInteger newIndex = rand() % _items.count;
+
             [self willChangeValueForKey:@"items"];
             id item = _items[oldIndex];
             [_items removeObject:item];
-
-            NSInteger newIndex = rand() % _items.count;
             [_items insertObject:item atIndex:newIndex];
             [self didChangeValueForKey:@"items"];
         } else if (sel == 1 && _items.count >= 1) {
@@ -57,6 +57,33 @@ static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
             [self removeItem:_items[oldIndex]];
         } else {
             [self addItem:nil];
+        }
+    } else {
+        int added = (rand() % 10) - 4;
+        int deleted = (rand() % 10) - 4;
+        int reordered = (rand() % 3) == 0;
+        if (added > 0) {
+            for (int i = 0; i < added; ++i) {
+                [_items addObject:[SampleItem new]];
+            }
+        }
+        if (deleted > 0) {
+            for (int i = 0; i < deleted && _items.count > 0; ++i) {
+                NSInteger oldIndex = rand() % _items.count;
+                [self removeItem:_items[oldIndex]];
+            }
+        }
+        if (reordered) {
+            // Fisher-Yates shuffle
+            NSInteger counter = _items.count;
+            while (counter > 0) {
+                NSInteger index = rand() % counter;
+                --counter;
+
+                id temp = _items[counter];
+                _items[counter] = _items[index];
+                _items[index] = temp;
+            }
         }
     }
 }
