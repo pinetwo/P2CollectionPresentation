@@ -127,10 +127,10 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         }];
 
         changeset.itemIndexPaths = newLookupCache;
-        changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems copy];
+        changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems sortedArrayUsingSelector:@selector(compare:)];
         changeset.indexesOfInsertedSections = [indexesOfAddedSections copy];
         changeset.indexesOfRemovedSections = [indexesOfRemovedSections copy];
-        changeset.indexPathsOfRemovedItems = [[indexPathsOfRemovedItems reverseObjectEnumerator] allObjects];
+        changeset.indexPathsOfRemovedItems = [[[indexPathsOfRemovedItems sortedArrayUsingSelector:@selector(compare:)] reverseObjectEnumerator] allObjects];
 
         NSMutableArray *movedItems = [NSMutableArray new];
         changeset.movedItems = movedItems;
@@ -142,9 +142,18 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
             NSIndexPath *oldAdjustedIndexPath = [changeset adjustOldIndexPath:oldIndexPath];
             NSIndexPath *newAdjustedIndexPath = [changeset adjustNewIndexPathBeforeItemAdditions:newIndexPath];
             NSLog(@"Iteration 1: item %@, oldIndexPath = %@, newIndexPath = %@, oldAdjustedIndexPath = %@, newAdjustedIndexPath = %@", item, oldIndexPath, newIndexPath, oldAdjustedIndexPath, newAdjustedIndexPath);
+
+            if ([indexesOfAddedSections containsIndex:newIndexPath.section]) {
+                if (oldAdjustedIndexPath != nil) {
+                    [indexPathsOfRemovedItems addObject:oldIndexPath];
+                    changeset.indexPathsOfRemovedItems = [[[indexPathsOfRemovedItems sortedArrayUsingSelector:@selector(compare:)] reverseObjectEnumerator] allObjects];
+                }
+                continue;
+            }
+
             if (oldAdjustedIndexPath == nil) {
                 [indexPathsOfAddedItems addObject:newIndexPath];
-                changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems copy];
+                changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems sortedArrayUsingSelector:@selector(compare:)];
             } else {
                 if (oldAdjustedIndexPath.section != newAdjustedIndexPath.section) {
                     [movedItems addObject:@[oldAdjustedIndexPath, newAdjustedIndexPath]];

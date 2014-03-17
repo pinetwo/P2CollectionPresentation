@@ -20,7 +20,6 @@
     if (section > 0) {
         section -= [_indexesOfRemovedSections countOfIndexesInRange:NSMakeRange(0, section)];
     }
-    section += [_indexesOfInsertedSections countOfIndexesInRange:NSMakeRange(0, section + 1)];
 
     for (NSIndexPath *indexPath in _indexPathsOfRemovedItems) {
         if (indexPath.section == section) {
@@ -29,6 +28,8 @@
             }
         }
     }
+
+    section += [_indexesOfInsertedSections countOfIndexesInRange:NSMakeRange(0, section + 1)];
 
     for (NSArray *pair in _movedItems) {
         NSIndexPath *oldIndexPath = pair[0];
