@@ -103,6 +103,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="i4r-6X-yV7">
+                        <barButtonItem key="leftBarButtonItem" title="Crash Test" id="pNf-VO-RXW">
+                            <connections>
+                                <action selector="performCrashTest:" destination="6QM-Za-P9G" id="koB-40-n6B"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L8R-gu-QZt">
                             <connections>
                                 <action selector="addNewItem:" destination="6QM-Za-P9G" id="lrd-W0-jqv"/>

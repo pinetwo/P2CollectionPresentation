@@ -15,6 +15,7 @@
 
 @implementation LSDViewController {
     LSDCollectionPresentation *_collectionPresentation;
+    NSTimer *_crashTestTimer;
 }
 
 - (void)viewDidLoad
@@ -60,6 +61,10 @@
         sender = [sender superview];
     [[sender representedObject] randomizePrice];
     [_collectionPresentation reloadData];
+}
+
+- (IBAction)performCrashTest:(id)sender {
+    _crashTestTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:[SampleRepository sharedRepository] selector:@selector(randomize) userInfo:nil repeats:YES];
 }
 
 @end

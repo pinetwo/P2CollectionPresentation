@@ -12,4 +12,6 @@
 - (IBAction)addItem:(id)sender;
 - (void)removeItem:(SampleItem *)item;
 
+- (void)randomize;
+
 @end

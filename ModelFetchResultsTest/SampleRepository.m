@@ -40,4 +40,25 @@ static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
     [self didChangeValueForKey:@"items"];
 }
 
+- (void)randomize {
+    if (YES || rand() % 2 == 0) {
+        int sel = rand() % 3;
+        if (sel == 0 && _items.count >= 2) {
+            NSInteger oldIndex = rand() % _items.count;
+            [self willChangeValueForKey:@"items"];
+            id item = _items[oldIndex];
+            [_items removeObject:item];
+
+            NSInteger newIndex = rand() % _items.count;
+            [_items insertObject:item atIndex:newIndex];
+            [self didChangeValueForKey:@"items"];
+        } else if (sel == 1 && _items.count >= 1) {
+            NSInteger oldIndex = rand() % _items.count;
+            [self removeItem:_items[oldIndex]];
+        } else {
+            [self addItem:nil];
+        }
+    }
+}
+
 @end
