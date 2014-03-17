@@ -76,6 +76,9 @@
         [_collectionView reloadData];
     } else {
         [_collectionView performBatchUpdates:^{
+            if (changeSet.indexesOfInsertedSections.count > 0) {
+                [_collectionView insertSections:changeSet.indexesOfInsertedSections];
+            }
             [changeSet obtainInsertedItemsWithBlock:^(NSArray *indexPaths) {
                 [_collectionView insertItemsAtIndexPaths:indexPaths];
             }];

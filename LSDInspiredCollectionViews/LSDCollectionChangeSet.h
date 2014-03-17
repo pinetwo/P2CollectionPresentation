@@ -9,12 +9,11 @@
 @property(nonatomic) NSArray *addedItems;
 @property(nonatomic) NSArray *removedItems;
 @property(nonatomic) NSArray *movedItems;
-@property(nonatomic) NSArray *addedSections;
+@property(nonatomic) NSIndexSet *indexesOfInsertedSections;
 @property(nonatomic) NSArray *removedSections;
 
 @property(nonatomic, readonly, getter=isEmpty) BOOL empty;
 
-- (void)obtainInsertedSectionsWithBlock:(void(^)(NSIndexSet *insertedSections))block;
 - (void)obtainRemovedSectionsWithBlock:(void(^)(NSIndexSet *removedSections))block;
 - (void)enumerateMovedSectionsWithBlock:(void(^)(NSInteger section, NSInteger newSection))block;
 
