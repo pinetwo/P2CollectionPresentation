@@ -2,6 +2,7 @@
 #import "LSDCollectionPresentation.h"
 #import "LSDCollectionSection.h"
 #import "LSDCollectionChangeSet.h"
+#import "ATScheduling.h"
 
 
 NSString *const LSDCollectionPresentationDidChangeNotification = @"LSDCollectionPresentationDidChange";
@@ -10,6 +11,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 @implementation LSDCollectionPresentation {
     NSDictionary *_visibleSectionsByGroupingValue;
+    ATCoalescedState _reloadDataState;
 }
 
 - (void)dealloc {
@@ -67,6 +69,13 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 }
 
 - (void)reloadData {
+    AT_dispatch_coalesced(&_reloadDataState, 0, ^(dispatch_block_t done) {
+        [self _doReloadData];
+        done();
+    });
+}
+
+- (void)_doReloadData {
     NSArray *oldVisibleSections = _visibleSections;
     NSDictionary *oldLookupCache = [self lookupCacheForItemsInSections:oldVisibleSections];
     NSDictionary *oldSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:oldVisibleSections];

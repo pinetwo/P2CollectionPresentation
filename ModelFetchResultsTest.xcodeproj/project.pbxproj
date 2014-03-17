@@ -30,6 +30,7 @@
 		35D5BB4818D729A1006D55FA /* SampleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4718D729A1006D55FA /* SampleItem.m */; };
 		35D5BB4B18D72B2A006D55FA /* SampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4A18D72B2A006D55FA /* SampleRepository.m */; };
 		35D5BB4E18D74243006D55FA /* SampleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4D18D74243006D55FA /* SampleHeader.m */; };
+		35D5BB5118D77FF6006D55FA /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB5018D77FF6006D55FA /* ATScheduling.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		35D5BB4A18D72B2A006D55FA /* SampleRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleRepository.m; sourceTree = "<group>"; };
 		35D5BB4C18D74243006D55FA /* SampleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleHeader.h; sourceTree = "<group>"; };
 		35D5BB4D18D74243006D55FA /* SampleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleHeader.m; sourceTree = "<group>"; };
+		35D5BB4F18D77FF6006D55FA /* ATScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATScheduling.h; sourceTree = "<group>"; };
+		35D5BB5018D77FF6006D55FA /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +204,8 @@
 				35D5BB4118D712D3006D55FA /* LSDCollectionChangeSet.m */,
 				35D5BB4318D71679006D55FA /* LSDCollectionSection.h */,
 				35D5BB4418D71679006D55FA /* LSDCollectionSection.m */,
+				35D5BB4F18D77FF6006D55FA /* ATScheduling.h */,
+				35D5BB5018D77FF6006D55FA /* ATScheduling.m */,
 			);
 			path = LSDInspiredCollectionViews;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				35D5BB4518D71679006D55FA /* LSDCollectionSection.m in Sources */,
 				35D5BB4218D712D4006D55FA /* LSDCollectionChangeSet.m in Sources */,
 				35D5BB3918D70D47006D55FA /* LSDCollectionViewAdapter.m in Sources */,
+				35D5BB5118D77FF6006D55FA /* ATScheduling.m in Sources */,
 				35D5BB1518D70C25006D55FA /* LSDViewController.m in Sources */,
 				35D5BB3C18D70D9D006D55FA /* LSDModelAwareObject.m in Sources */,
 				35D5BB3518D70CA2006D55FA /* LSDCell.m in Sources */,

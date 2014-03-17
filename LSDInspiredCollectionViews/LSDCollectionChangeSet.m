@@ -29,7 +29,11 @@
         }
     }
 
-    section += [_indexesOfInsertedSections countOfIndexesInRange:NSMakeRange(0, section + 1)];
+    NSUInteger currentIndex = [_indexesOfInsertedSections firstIndex];
+    while (currentIndex != NSNotFound && currentIndex <= section) {
+        ++section;
+        currentIndex = [_indexesOfInsertedSections indexGreaterThanIndex:currentIndex];
+    }
 
     for (NSArray *pair in _movedItems) {
         NSIndexPath *oldIndexPath = pair[0];

@@ -64,7 +64,7 @@
 }
 
 - (IBAction)performCrashTest:(id)sender {
-    _crashTestTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:[SampleRepository sharedRepository] selector:@selector(randomize) userInfo:nil repeats:YES];
+    _crashTestTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:[SampleRepository sharedRepository] selector:@selector(randomize) userInfo:nil repeats:YES];
 }
 
 @end
