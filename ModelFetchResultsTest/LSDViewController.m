@@ -29,12 +29,13 @@
             @"selectionCriteria": [NSPredicate predicateWithFormat:@"price < 1000"],
         }]
     ];
+    _collectionPresentation.groupingKeyPath = @"priceScale";
 
     _collectionPresentation.sectionConfigurationBlock = ^(LSDCollectionSection *section) {
         section.supplementaryViewReuseIdentifiers = @{UICollectionElementKindSectionHeader: @"header"};
     };
     _collectionPresentation.dynamicSectionConfigurationBlock = ^(LSDCollectionSection *section) {
-        section.title = @"Others";
+        section.title = [NSString stringWithFormat:@"%@000", section.groupingValue];
     };
 
     [_collectionPresentation bindToModel:[SampleRepository sharedRepository] keyPath:@"items"];

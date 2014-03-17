@@ -85,15 +85,46 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
     }
 
     if (remainingObjects.count > 0) {
-        LSDCollectionSection *section = [LSDCollectionSection new];
-        section.items = remainingObjects;
-        if (_dynamicSectionConfigurationBlock) {
-            _dynamicSectionConfigurationBlock(section);
+        if (_groupingKeyPath) {
+            NSMutableDictionary *groupedItems = [NSMutableDictionary new];
+            NSMutableArray *groupingValues = [NSMutableArray new];
+            for (id item in remainingObjects) {
+                id key = [item valueForKeyPath:_groupingKeyPath];
+                if (key == nil)
+                    continue;
+
+                NSMutableArray *array = groupedItems[key];
+                if (!array) {
+                    array = [NSMutableArray new];
+                    groupedItems[key] = array;
+                    [groupingValues addObject:key];
+                }
+                [array addObject:item];
+            }
+
+            for (id groupingValue in groupingValues) {
+                LSDCollectionSection *section = [LSDCollectionSection new];
+                section.items = groupedItems[groupingValue];
+                section.groupingValue = groupingValue;
+                if (_dynamicSectionConfigurationBlock) {
+                    _dynamicSectionConfigurationBlock(section);
+                }
+                if (_sectionConfigurationBlock) {
+                    _sectionConfigurationBlock(section);
+                }
+                [visibleSections addObject:section];
+            }
+        } else {
+            LSDCollectionSection *section = [LSDCollectionSection new];
+            section.items = remainingObjects;
+            if (_dynamicSectionConfigurationBlock) {
+                _dynamicSectionConfigurationBlock(section);
+            }
+            if (_sectionConfigurationBlock) {
+                _sectionConfigurationBlock(section);
+            }
+            [visibleSections addObject:section];
         }
-        if (_sectionConfigurationBlock) {
-            _sectionConfigurationBlock(section);
-        }
-        [visibleSections addObject:section];
     }
 
     _visibleSections = [visibleSections copy];

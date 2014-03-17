@@ -24,7 +24,7 @@ static NSString *RandomString(NSArray *array) {
 }
 
 - (NSInteger)priceScale {
-    return floor(log10(_price));
+    return _price / 1000;
 }
 
 + (NSSet *)keyPathsForValuesAffectingPriceScale {
