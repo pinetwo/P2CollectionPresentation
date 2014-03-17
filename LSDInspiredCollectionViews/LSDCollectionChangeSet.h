@@ -17,4 +17,7 @@
 - (void)enumerateMovedSectionsWithBlock:(void(^)(NSInteger section, NSInteger newSection))block;
 - (void)enumerateMovedItemsWithBlock:(void(^)(NSIndexPath *indexPath, NSIndexPath *newIndexPath))block;
 
+- (NSIndexPath *)adjustOldIndexPath:(NSIndexPath *)indexPath;
+- (NSIndexPath *)adjustNewIndexPathBeforeItemAdditions:(NSIndexPath *)indexPath;
+
 @end

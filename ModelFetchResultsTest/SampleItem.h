@@ -5,6 +5,8 @@
 
 @property(nonatomic) NSString *title;
 @property(nonatomic) NSInteger price;
-@property(nonatomic) NSInteger priceScale;
+@property(nonatomic, readonly) NSInteger priceScale;
+
+- (void)randomizePrice;
 
 @end

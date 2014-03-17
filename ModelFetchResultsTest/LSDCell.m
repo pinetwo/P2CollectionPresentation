@@ -25,10 +25,6 @@
     _textLabel.text = [NSString stringWithFormat:@"%@ %@", item.title, @(item.price)];
 }
 
-- (IBAction)randomizePrice:(id)sender {
-    [self.representedObject setPrice:random()];
-}
-
 - (IBAction)delete:(id)sender {
     [[SampleRepository sharedRepository] removeItem:self.representedObject];
 }

@@ -2,6 +2,8 @@
 #import "SampleRepository.h"
 #import "SampleItem.h"
 
+static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
+
 @implementation SampleRepository {
     NSMutableArray *_items;
 }

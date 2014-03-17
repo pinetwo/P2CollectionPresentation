@@ -86,6 +86,11 @@
             if (changeSet.indexesOfInsertedSections.count > 0) {
                 [_collectionView insertSections:changeSet.indexesOfInsertedSections];
             }
+
+            [changeSet enumerateMovedItemsWithBlock:^(NSIndexPath *indexPath, NSIndexPath *newIndexPath) {
+                [_collectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+            }];
+
             if (changeSet.indexPathsOfAddedItems.count > 0) {
                 [_collectionView insertItemsAtIndexPaths:changeSet.indexPathsOfAddedItems];
             }

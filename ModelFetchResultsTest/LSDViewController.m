@@ -3,6 +3,7 @@
 #import "LSDCollectionViewAdapter.h"
 #import "LSDCollectionPresentation.h"
 #import "LSDCollectionSection.h"
+#import "LSDCell.h"
 #import "SampleRepository.h"
 #import "SampleItem.h"
 
@@ -52,6 +53,13 @@
 
 - (IBAction)addNewItem:(id)sender {
     [[SampleRepository sharedRepository] addItem:[SampleItem new]];
+}
+
+- (IBAction)randomizePrice:(id)sender {
+    while (![sender isKindOfClass:LSDCell.class])
+        sender = [sender superview];
+    [[sender representedObject] randomizePrice];
+    [_collectionPresentation reloadData];
 }
 
 @end

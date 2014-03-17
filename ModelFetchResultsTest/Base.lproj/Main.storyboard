@@ -55,7 +55,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="randomizePrice:" destination="An3-3j-jL1" eventType="touchUpInside" id="sDH-WG-R4p"/>
+                                                <action selector="randomizePrice:" destination="Ldo-Ng-cRO" eventType="touchUpInside" id="eRs-dv-abq"/>
                                             </connections>
                                         </button>
                                     </subviews>

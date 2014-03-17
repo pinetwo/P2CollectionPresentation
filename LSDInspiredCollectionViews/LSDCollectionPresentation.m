@@ -63,7 +63,10 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 - (void)setObjects:(NSArray *)objects {
     _objects = [objects copy];
+    [self reloadData];
+}
 
+- (void)reloadData {
     NSArray *oldVisibleSections = _visibleSections;
     NSDictionary *oldLookupCache = [self lookupCacheForItemsInSections:oldVisibleSections];
     NSDictionary *oldSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:oldVisibleSections];
@@ -72,13 +75,15 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
     _visibleSections = [self visibleSectionsForObjects:_objects];
     _visibleSectionsByGroupingValue = [self indexSectionsByGroupingValue:_visibleSections];
 
+    NSLog(@"New visibleSections = %@", _visibleSections);
+
     LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
     if (oldVisibleSections) {
         NSDictionary *newLookupCache = [self lookupCacheForItemsInSections:_visibleSections];
         NSDictionary *newSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:_visibleSections];
 
         NSMutableArray *indexPathsOfAddedItems = [NSMutableArray new];
-        NSMutableArray *movedItems = [NSMutableArray new];
+        NSMutableArray *existingItems = [NSMutableArray new];
         NSMutableArray *indexPathsOfRemovedItems = [NSMutableArray new];
         NSMutableIndexSet *indexesOfAddedSections = [NSMutableIndexSet new];
         NSMutableIndexSet *indexesOfRemovedSections = [NSMutableIndexSet new];
@@ -86,20 +91,24 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         [_visibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
             if (!oldSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
                 [indexesOfAddedSections addIndex:sectionIndex];
-                return;
-            }
 
-            [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
-                NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
-                NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:idx inSection:section.visibleSectionIndex];
-                if (oldIndexPath) {
-                    if (![oldIndexPath isEqual:newIndexPath]) {
-                        [movedItems addObject:item];
+                [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
+                    NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+                    if (oldIndexPath) {
+                        [existingItems addObject:item];
                     }
-                } else {
-                    [indexPathsOfAddedItems addObject:newIndexPath];
-                }
-            }];
+                }];
+            } else {
+                [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
+                    NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+                    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:idx inSection:section.visibleSectionIndex];
+                    if (oldIndexPath) {
+                        [existingItems addObject:item];
+                    } else {
+                        [indexPathsOfAddedItems addObject:newIndexPath];
+                    }
+                }];
+            }
         }];
 
         [oldVisibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger oldSectionIndex, BOOL *stop) {
@@ -122,6 +131,45 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         changeset.indexesOfInsertedSections = [indexesOfAddedSections copy];
         changeset.indexesOfRemovedSections = [indexesOfRemovedSections copy];
         changeset.indexPathsOfRemovedItems = [[indexPathsOfRemovedItems reverseObjectEnumerator] allObjects];
+
+        NSMutableArray *movedItems = [NSMutableArray new];
+        changeset.movedItems = movedItems;
+
+        for (id item in existingItems) {
+            NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+            NSIndexPath *newIndexPath = [self indexPathForItem:item usingLookupCache:newLookupCache];
+
+            NSIndexPath *oldAdjustedIndexPath = [changeset adjustOldIndexPath:oldIndexPath];
+            NSIndexPath *newAdjustedIndexPath = [changeset adjustNewIndexPathBeforeItemAdditions:newIndexPath];
+            NSLog(@"Iteration 1: item %@, oldIndexPath = %@, newIndexPath = %@, oldAdjustedIndexPath = %@, newAdjustedIndexPath = %@", item, oldIndexPath, newIndexPath, oldAdjustedIndexPath, newAdjustedIndexPath);
+            if (oldAdjustedIndexPath == nil) {
+                [indexPathsOfAddedItems addObject:newIndexPath];
+                changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems copy];
+            } else {
+                if (oldAdjustedIndexPath.section != newAdjustedIndexPath.section) {
+                    [movedItems addObject:@[oldAdjustedIndexPath, newAdjustedIndexPath]];
+                    changeset.movedItems = movedItems;
+                }
+            }
+        }
+
+        for (id item in existingItems) {
+            NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+            NSIndexPath *newIndexPath = [self indexPathForItem:item usingLookupCache:newLookupCache];
+
+            NSIndexPath *oldAdjustedIndexPath = [changeset adjustOldIndexPath:oldIndexPath];
+            NSIndexPath *newAdjustedIndexPath = [changeset adjustNewIndexPathBeforeItemAdditions:newIndexPath];
+
+            NSLog(@"Iteration 2: item %@, oldIndexPath = %@, newIndexPath = %@, oldAdjustedIndexPath = %@, newAdjustedIndexPath = %@", item, oldIndexPath, newIndexPath, oldAdjustedIndexPath, newAdjustedIndexPath);
+            if (oldAdjustedIndexPath != nil) {
+                if (oldAdjustedIndexPath.section == newAdjustedIndexPath.section && oldAdjustedIndexPath.item != newAdjustedIndexPath.item) {
+                    [movedItems addObject:@[oldAdjustedIndexPath, newAdjustedIndexPath]];
+                    changeset.movedItems = movedItems;
+                }
+            }
+        }
+
+        NSLog(@"changeSet = %@", changeset);
     } else {
         changeset.fullRelolad = YES;
     }

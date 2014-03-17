@@ -20,6 +20,7 @@ extern NSString *const LSDCollectionPresentationChangeSetKey; // LSDCollectionCh
 
 // inputs
 @property(nonatomic, copy) NSArray *objects;  // set automatically by KVO
+- (void)reloadData; // call to resort, regroup and refilter existing objects
 
 @property(nonatomic, copy) NSArray *predefinedSections;
 @property(nonatomic, copy) NSArray *itemSortDescriptors;
