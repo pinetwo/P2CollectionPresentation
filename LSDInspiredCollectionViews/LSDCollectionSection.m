@@ -15,4 +15,12 @@
     return self;
 }
 
+- (NSString *)identifierOrGroupingValue {
+    return (_identifier ?: _groupingValue) ?: [NSNull null];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"(%d %@: %@)", (int)self.visibleSectionIndex, self.identifierOrGroupingValue, self.items];
+}
+
 @end

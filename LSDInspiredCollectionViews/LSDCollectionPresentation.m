@@ -8,7 +8,9 @@ NSString *const LSDCollectionPresentationDidChangeNotification = @"LSDCollection
 NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 
-@implementation LSDCollectionPresentation
+@implementation LSDCollectionPresentation {
+    NSDictionary *_visibleSectionsByGroupingValue;
+}
 
 - (void)dealloc {
     [self bindToModel:nil keyPath:nil];
@@ -44,11 +46,86 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 }
 
 
+#pragma mark - Inputs
+
+- (void)setPredefinedSections:(NSArray *)predefinedSections {
+    [predefinedSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger idx, BOOL *stop) {
+        if (!section.identifier) {
+            section.identifier = [NSString stringWithFormat:@"predefined-%d", (int)idx];
+        }
+    }];
+
+    _predefinedSections = [predefinedSections copy];
+}
+
+
 #pragma mark - The core :-)
 
 - (void)setObjects:(NSArray *)objects {
     _objects = [objects copy];
 
+    NSArray *oldVisibleSections = _visibleSections;
+    NSDictionary *oldLookupCache = [self lookupCacheForItemsInSections:oldVisibleSections];
+    NSDictionary *oldSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:oldVisibleSections];
+
+    _visibleSections = [self visibleSectionsForObjects:_objects];
+    _visibleSectionsByGroupingValue = [self indexSectionsByGroupingValue:_visibleSections];
+
+    LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
+    if (oldVisibleSections) {
+        NSDictionary *newLookupCache = [self lookupCacheForItemsInSections:_visibleSections];
+        NSDictionary *newSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:_visibleSections];
+
+        NSMutableArray *addedItems = [NSMutableArray new];
+        NSMutableArray *movedItems = [NSMutableArray new];
+        NSMutableArray *removedItems = [NSMutableArray new];
+        NSMutableArray *addedSections = [NSMutableArray new];
+        NSMutableArray *removedSections = [NSMutableArray new];
+
+        for (LSDCollectionSection *section in _visibleSections) {
+            if (!oldSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
+                [addedSections addObject:section];
+            }
+
+            [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
+                NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+                if (oldIndexPath) {
+                    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:idx inSection:section.visibleSectionIndex];
+                    if (![oldIndexPath isEqual:newIndexPath]) {
+                        [movedItems addObject:item];
+                    }
+                } else {
+                    [addedItems addObject:item];
+                }
+            }];
+        }
+
+        for (LSDCollectionSection *section in oldVisibleSections) {
+            if (!newSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
+                [removedSections addObject:section];
+                continue;
+            }
+
+            [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
+                NSIndexPath *newIndexPath = [self indexPathForItem:item usingLookupCache:newLookupCache];
+                if (!newIndexPath) {
+                    [removedItems addObject:item];
+                }
+            }];
+        }
+
+        changeset.itemIndexPaths = newLookupCache;
+        changeset.addedItems = [addedItems copy];
+    } else {
+        changeset.fullRelolad = YES;
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:LSDCollectionPresentationDidChangeNotification
+                                                        object:self
+                                                      userInfo:@{LSDCollectionPresentationChangeSetKey: changeset}];
+}
+
+- (NSArray *)visibleSectionsForObjects:(NSArray *)objects {
     NSMutableArray *visibleSections = [NSMutableArray new];
     NSArray *remainingObjects = _objects;
 
@@ -84,7 +161,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         if (section.items.count > 0) {
             [visibleSections addObject:section];
         } else {
-            section.sectionIndex = NSIntegerMin;
+            section.visibleSectionIndex = NSIntegerMin;
         }
     }
 
@@ -107,9 +184,8 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
             }
 
             for (id groupingValue in groupingValues) {
-                LSDCollectionSection *section = [LSDCollectionSection new];
+                LSDCollectionSection *section = [self newSectionForGroupingValue:groupingValue];
                 section.items = groupedItems[groupingValue];
-                section.groupingValue = groupingValue;
                 if (_dynamicSectionConfigurationBlock) {
                     _dynamicSectionConfigurationBlock(section);
                 }
@@ -119,7 +195,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
                 [visibleSections addObject:section];
             }
         } else {
-            LSDCollectionSection *section = [LSDCollectionSection new];
+            LSDCollectionSection *section = [self newSectionForGroupingValue:nil];
             section.items = remainingObjects;
             if (_dynamicSectionConfigurationBlock) {
                 _dynamicSectionConfigurationBlock(section);
@@ -131,21 +207,61 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         }
     }
 
-
     if (_sectionSortDescriptors.count > 0) {
         [visibleSections sortUsingDescriptors:_sectionSortDescriptors];
     }
 
-    _visibleSections = [visibleSections copy];
+    [visibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger idx, BOOL *stop) {
+        section.visibleSectionIndex = idx;
+    }];
 
-    LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
-    // TODO diff and stuff
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:LSDCollectionPresentationDidChangeNotification
-                                                        object:self
-                                                      userInfo:@{LSDCollectionPresentationChangeSetKey: changeset}];
+    return [visibleSections copy];
 }
 
+- (LSDCollectionSection *)newSectionForGroupingValue:(id)groupingValue {
+    LSDCollectionSection *section = _visibleSectionsByGroupingValue[groupingValue ?: [NSNull null]];
+    if (!section) {
+        section = [LSDCollectionSection new];
+        section.groupingValue = groupingValue;
+    }
+    return section;
+}
+
+- (NSDictionary *)lookupCacheForItemsInSections:(NSArray *)sections {
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    [sections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
+        [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger itemIndex, BOOL *stop) {
+            result[[NSValue valueWithNonretainedObject:item]] = [NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex];
+        }];
+    }];
+    return result;
+}
+
+- (NSIndexPath *)indexPathForItem:(id)item usingLookupCache:(NSDictionary *)lookupCache {
+    return lookupCache[[NSValue valueWithNonretainedObject:item]];
+}
+
+- (NSDictionary *)indexSectionsByGroupingValue:(NSArray *)sections {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (LSDCollectionSection *section in sections) {
+        if (section.identifier)
+            continue;
+        id key = section.groupingValue;
+        if (key == nil)
+            key = [NSNull null];
+        grouped[key] = section;
+    }
+    return grouped;
+}
+
+- (NSDictionary *)indexSectionsByIdentifierOrGroupingValue:(NSArray *)sections {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (LSDCollectionSection *section in sections) {
+        id key = section.identifierOrGroupingValue;
+        grouped[key] = section;
+    }
+    return grouped;
+}
 
 #pragma mark - Outputs
 

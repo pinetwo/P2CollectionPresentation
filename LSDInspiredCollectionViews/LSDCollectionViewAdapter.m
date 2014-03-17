@@ -72,8 +72,16 @@
 }
 
 - (void)applyChangeSet:(LSDCollectionChangeSet *)changeSet {
-    // TODO
-    [_collectionView reloadData];
+    if (changeSet.fullRelolad) {
+        [_collectionView reloadData];
+    } else {
+        [_collectionView performBatchUpdates:^{
+            [changeSet obtainInsertedItemsWithBlock:^(NSArray *indexPaths) {
+                [_collectionView insertItemsAtIndexPaths:indexPaths];
+            }];
+        } completion:^(BOOL finished) {
+        }];
+    }
 
     //- (void)insertSections:(NSIndexSet *)sections;
     //- (void)deleteSections:(NSIndexSet *)sections;

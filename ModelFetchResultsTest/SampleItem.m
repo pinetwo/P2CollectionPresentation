@@ -31,4 +31,8 @@ static NSString *RandomString(NSArray *array) {
     return [NSSet setWithObject:@"price"];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"(%d %@)", (int)_price, [_title componentsSeparatedByString:@" "][0]];
+}
+
 @end

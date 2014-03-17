@@ -26,9 +26,12 @@ typedef void (^LSDCollectionSectionConfigurationBlock)(LSDCollectionSection *sec
 // Can also set `groupingValue` key to select objects by the value of `groupingKeyPath`.
 @property(nonatomic, copy) NSPredicate *selectionCriteria;
 
+@property(nonatomic, copy) NSString *identifier;
+@property(nonatomic, readonly) NSString *identifierOrGroupingValue;
+
 // Index of a visible section after sorting and filtering, filled in by LSDCollectionPresentation.
 // NSIntegerMin for invisible sections.
-@property(nonatomic) NSInteger sectionIndex;
+@property(nonatomic) NSInteger visibleSectionIndex;
 
 // Visible items of a visible section after sorting and filtering, filled in by LSDCollectionPresentation.
 // Empty array for invisible sections.
