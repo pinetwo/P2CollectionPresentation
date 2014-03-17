@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "LSDModelAwareCollectionViewCell.h"
+#import "LSDModelAwareObject.h"
 
 
 @interface LSDCell : LSDModelAwareCollectionViewCell

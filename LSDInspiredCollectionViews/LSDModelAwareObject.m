@@ -1,5 +1,5 @@
 
-#import "LSDModelAwareCollectionViewCell.h"
+#import "LSDModelAwareObject.h"
 
 
 @implementation LSDModelAwareCollectionViewCell

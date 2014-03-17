@@ -10,9 +10,17 @@ typedef void (^LSDCollectionSectionConfigurationBlock)(LSDCollectionSection *sec
 
 @interface LSDCollectionSection : NSObject
 
+// use property names as keys; everything else goes into userData
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 // inputs (filled in by the client of LSDCollectionPresentation)
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSDictionary *userData;
+
+// keys are kinds, values are reuse identifiers;
+// see: UICollectionElementKindSectionHeader, UICollectionElementKindSectionFooter
+// use @"UITableElementKindSectionHeader" and @"UITableElementKindSectionFooter" for tables
+@property(nonatomic, copy) NSDictionary *supplementaryViewReuseIdentifiers;
 
 // Set this for predefined sections to explicitly specify the selection criteria.
 // Can also set `groupingValue` key to select objects by the value of `groupingKeyPath`.

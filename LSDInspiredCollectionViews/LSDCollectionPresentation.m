@@ -49,13 +49,54 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 - (void)setObjects:(NSArray *)objects {
     _objects = [objects copy];
 
-    // TODO: compute sections
-    LSDCollectionSection *section = [LSDCollectionSection new];
-    section.items = _objects;
-    if (_sectionConfigurationBlock) {
-        _sectionConfigurationBlock(section);
+    NSMutableArray *visibleSections = [NSMutableArray new];
+    NSArray *remainingObjects = _objects;
+
+    for (LSDCollectionSection *section in _predefinedSections) {
+        NSArray *selectedItems;
+        if (section.selectionCriteria) {
+            selectedItems = [remainingObjects filteredArrayUsingPredicate:section.selectionCriteria];
+        } else if (section.groupingValue) {
+            NSAssert(!!self.groupingKeyPath, @"groupingKeyPath must be set if predefined sections use groupingValue");
+            id expectedValue = section.groupingValue;
+            NSString *keyPath = self.groupingKeyPath;
+            selectedItems = [remainingObjects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                id value = [evaluatedObject valueForKeyPath:keyPath];
+                return ([value isEqual:expectedValue]);
+            }]];
+        } else {
+            selectedItems = remainingObjects;
+        }
+
+        section.items = selectedItems;
+        remainingObjects = [remainingObjects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return ![selectedItems containsObject:evaluatedObject];
+        }]];
+
+        if (_sectionConfigurationBlock) {
+            _sectionConfigurationBlock(section);
+        }
+
+        if (section.items.count > 0) {
+            [visibleSections addObject:section];
+        } else {
+            section.sectionIndex = NSIntegerMin;
+        }
     }
-    _visibleSections = @[section];
+
+    if (remainingObjects.count > 0) {
+        LSDCollectionSection *section = [LSDCollectionSection new];
+        section.items = remainingObjects;
+        if (_dynamicSectionConfigurationBlock) {
+            _dynamicSectionConfigurationBlock(section);
+        }
+        if (_sectionConfigurationBlock) {
+            _sectionConfigurationBlock(section);
+        }
+        [visibleSections addObject:section];
+    }
+
+    _visibleSections = [visibleSections copy];
 
     LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
     // TODO diff and stuff

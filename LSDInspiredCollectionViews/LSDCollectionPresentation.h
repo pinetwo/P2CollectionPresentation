@@ -26,6 +26,7 @@ extern NSString *const LSDCollectionPresentationChangeSetKey; // LSDCollectionCh
 @property(nonatomic, copy) NSArray *sectionSortDescriptors;
 @property(nonatomic, copy) NSString *groupingKeyPath;
 @property(nonatomic, copy) LSDCollectionSectionConfigurationBlock sectionConfigurationBlock;
+@property(nonatomic, copy) LSDCollectionSectionConfigurationBlock dynamicSectionConfigurationBlock;
 
 // outputs
 @property(nonatomic, copy) NSArray *visibleSections;

@@ -18,7 +18,7 @@ static NSString *RandomString(NSArray *array) {
         NSArray *nouns = [@"auxanometer boggart chasseur drail ekka fandango gambeson hawse ixia jabberwock kersey lorimer" componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         _title = [NSString stringWithFormat:@"%@ %@ %@", RandomString(adjectives), RandomString(colors), RandomString(nouns)];
-        _price = random();
+        _price = random() % 5000;
     }
     return self;
 }

@@ -3,7 +3,7 @@
 #import "LSDCollectionPresentation.h"
 #import "LSDCollectionSection.h"
 #import "LSDCollectionChangeSet.h"
-#import "LSDModelAwareCollectionViewCell.h"
+#import "LSDModelAwareObject.h"
 
 
 #define NSNC [NSNotificationCenter defaultCenter]
@@ -116,8 +116,8 @@
 
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
 
-    if ([cell conformsToProtocol:@protocol(LSDModelAwareCollectionViewCell)]) {
-        [(id<LSDModelAwareCollectionViewCell>)cell setRepresentedObject:item];
+    if ([cell conformsToProtocol:@protocol(LSDModelAwareObject)]) {
+        [(id<LSDModelAwareObject>)cell setRepresentedObject:item];
     }
 
     if (_delegateRespondsTo_configureCollectionViewCell) {
@@ -129,6 +129,20 @@
     }
 
     return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    LSDCollectionSection *section = _collectionPresentation.visibleSections[indexPath.section];
+    NSString *reuseIdentifier = section.supplementaryViewReuseIdentifiers[kind];
+    if (reuseIdentifier) {
+        UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+        if ([view conformsToProtocol:@protocol(LSDModelAwareObject)]) {
+            [(id<LSDModelAwareObject>)view setRepresentedObject:section];
+        }
+        return view;
+    } else {
+        return nil;
+    }
 }
 
 @end

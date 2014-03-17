@@ -23,12 +23,13 @@
 		35D5BB2A18D70C25006D55FA /* ModelFetchResultsTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB2918D70C25006D55FA /* ModelFetchResultsTestTests.m */; };
 		35D5BB3518D70CA2006D55FA /* LSDCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB3418D70CA2006D55FA /* LSDCell.m */; };
 		35D5BB3918D70D47006D55FA /* LSDCollectionViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB3818D70D47006D55FA /* LSDCollectionViewAdapter.m */; };
-		35D5BB3C18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB3B18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.m */; };
+		35D5BB3C18D70D9D006D55FA /* LSDModelAwareObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB3B18D70D9D006D55FA /* LSDModelAwareObject.m */; };
 		35D5BB3F18D70FC5006D55FA /* LSDCollectionPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB3E18D70FC5006D55FA /* LSDCollectionPresentation.m */; };
 		35D5BB4218D712D4006D55FA /* LSDCollectionChangeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4118D712D3006D55FA /* LSDCollectionChangeSet.m */; };
 		35D5BB4518D71679006D55FA /* LSDCollectionSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4418D71679006D55FA /* LSDCollectionSection.m */; };
 		35D5BB4818D729A1006D55FA /* SampleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4718D729A1006D55FA /* SampleItem.m */; };
 		35D5BB4B18D72B2A006D55FA /* SampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4A18D72B2A006D55FA /* SampleRepository.m */; };
+		35D5BB4E18D74243006D55FA /* SampleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB4D18D74243006D55FA /* SampleHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +66,8 @@
 		35D5BB3418D70CA2006D55FA /* LSDCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDCell.m; sourceTree = "<group>"; };
 		35D5BB3718D70D47006D55FA /* LSDCollectionViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDCollectionViewAdapter.h; sourceTree = "<group>"; };
 		35D5BB3818D70D47006D55FA /* LSDCollectionViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDCollectionViewAdapter.m; sourceTree = "<group>"; };
-		35D5BB3A18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDModelAwareCollectionViewCell.h; sourceTree = "<group>"; };
-		35D5BB3B18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDModelAwareCollectionViewCell.m; sourceTree = "<group>"; };
+		35D5BB3A18D70D9D006D55FA /* LSDModelAwareObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDModelAwareObject.h; sourceTree = "<group>"; };
+		35D5BB3B18D70D9D006D55FA /* LSDModelAwareObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDModelAwareObject.m; sourceTree = "<group>"; };
 		35D5BB3D18D70FC5006D55FA /* LSDCollectionPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDCollectionPresentation.h; sourceTree = "<group>"; };
 		35D5BB3E18D70FC5006D55FA /* LSDCollectionPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDCollectionPresentation.m; sourceTree = "<group>"; };
 		35D5BB4018D712D3006D55FA /* LSDCollectionChangeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDCollectionChangeSet.h; sourceTree = "<group>"; };
@@ -77,6 +78,8 @@
 		35D5BB4718D729A1006D55FA /* SampleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleItem.m; sourceTree = "<group>"; };
 		35D5BB4918D72B2A006D55FA /* SampleRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleRepository.h; sourceTree = "<group>"; };
 		35D5BB4A18D72B2A006D55FA /* SampleRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleRepository.m; sourceTree = "<group>"; };
+		35D5BB4C18D74243006D55FA /* SampleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleHeader.h; sourceTree = "<group>"; };
+		35D5BB4D18D74243006D55FA /* SampleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 				35D5BB4718D729A1006D55FA /* SampleItem.m */,
 				35D5BB4918D72B2A006D55FA /* SampleRepository.h */,
 				35D5BB4A18D72B2A006D55FA /* SampleRepository.m */,
+				35D5BB4C18D74243006D55FA /* SampleHeader.h */,
+				35D5BB4D18D74243006D55FA /* SampleHeader.m */,
 			);
 			path = ModelFetchResultsTest;
 			sourceTree = "<group>";
@@ -188,8 +193,8 @@
 			children = (
 				35D5BB3718D70D47006D55FA /* LSDCollectionViewAdapter.h */,
 				35D5BB3818D70D47006D55FA /* LSDCollectionViewAdapter.m */,
-				35D5BB3A18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.h */,
-				35D5BB3B18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.m */,
+				35D5BB3A18D70D9D006D55FA /* LSDModelAwareObject.h */,
+				35D5BB3B18D70D9D006D55FA /* LSDModelAwareObject.m */,
 				35D5BB3D18D70FC5006D55FA /* LSDCollectionPresentation.h */,
 				35D5BB3E18D70FC5006D55FA /* LSDCollectionPresentation.m */,
 				35D5BB4018D712D3006D55FA /* LSDCollectionChangeSet.h */,
@@ -298,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35D5BB4E18D74243006D55FA /* SampleHeader.m in Sources */,
 				35D5BB4818D729A1006D55FA /* SampleItem.m in Sources */,
 				35D5BB4B18D72B2A006D55FA /* SampleRepository.m in Sources */,
 				35D5BB0F18D70C25006D55FA /* LSDAppDelegate.m in Sources */,
@@ -307,7 +313,7 @@
 				35D5BB4218D712D4006D55FA /* LSDCollectionChangeSet.m in Sources */,
 				35D5BB3918D70D47006D55FA /* LSDCollectionViewAdapter.m in Sources */,
 				35D5BB1518D70C25006D55FA /* LSDViewController.m in Sources */,
-				35D5BB3C18D70D9D006D55FA /* LSDModelAwareCollectionViewCell.m in Sources */,
+				35D5BB3C18D70D9D006D55FA /* LSDModelAwareObject.m in Sources */,
 				35D5BB3518D70CA2006D55FA /* LSDCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +519,7 @@
 				35D5BB2F18D70C25006D55FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		35D5BB3018D70C25006D55FA /* Build configuration list for PBXNativeTarget "ModelFetchResultsTestTests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +528,7 @@
 				35D5BB3218D70C25006D55FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
