@@ -76,6 +76,13 @@
         [_collectionView reloadData];
     } else {
         [_collectionView performBatchUpdates:^{
+            if (changeSet.indexPathsOfRemovedItems.count > 0) {
+                [_collectionView deleteItemsAtIndexPaths:changeSet.indexPathsOfRemovedItems];
+            }
+            if (changeSet.indexesOfRemovedSections.count > 0) {
+                [_collectionView deleteSections:changeSet.indexesOfRemovedSections];
+            }
+
             if (changeSet.indexesOfInsertedSections.count > 0) {
                 [_collectionView insertSections:changeSet.indexesOfInsertedSections];
             }

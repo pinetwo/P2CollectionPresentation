@@ -26,19 +26,51 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXY-b7-YUR">
-                                            <rect key="frame" x="20" y="15" width="267" height="20"/>
+                                            <rect key="frame" x="20" y="15" width="179" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jl-um-Xch">
+                                            <rect key="frame" x="255" y="0.0" width="44" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="jZu-Ag-j1L"/>
+                                            </constraints>
+                                            <state key="normal" title="X">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="delete:" destination="An3-3j-jL1" eventType="touchUpInside" id="6kh-dR-vDd"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1h-0T-reW">
+                                            <rect key="frame" x="203" y="0.0" width="44" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="gnb-9Y-nOR"/>
+                                            </constraints>
+                                            <state key="normal" title="R">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="randomizePrice:" destination="An3-3j-jL1" eventType="touchUpInside" id="sDH-WG-R4p"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="tXY-b7-YUR" secondAttribute="centerY" id="2rY-vN-uEv"/>
-                                    <constraint firstAttribute="trailing" secondItem="tXY-b7-YUR" secondAttribute="trailing" constant="20" id="55p-Tz-rFW"/>
+                                    <constraint firstAttribute="bottom" secondItem="9jl-um-Xch" secondAttribute="bottom" id="7Go-Z5-Rn4"/>
+                                    <constraint firstItem="J1h-0T-reW" firstAttribute="leading" secondItem="tXY-b7-YUR" secondAttribute="trailing" constant="4" id="7Pt-Jv-Qu8"/>
                                     <constraint firstItem="tXY-b7-YUR" firstAttribute="leading" secondItem="An3-3j-jL1" secondAttribute="leading" constant="20" id="9Xl-BV-4Ie"/>
+                                    <constraint firstItem="9jl-um-Xch" firstAttribute="top" secondItem="An3-3j-jL1" secondAttribute="top" id="DPY-To-zDM"/>
+                                    <constraint firstAttribute="bottom" secondItem="J1h-0T-reW" secondAttribute="bottom" id="a0F-K2-iIf"/>
+                                    <constraint firstAttribute="trailing" secondItem="9jl-um-Xch" secondAttribute="trailing" constant="8" id="fVL-Dp-REz"/>
+                                    <constraint firstItem="J1h-0T-reW" firstAttribute="top" secondItem="An3-3j-jL1" secondAttribute="top" id="g73-lW-7pc"/>
+                                    <constraint firstItem="9jl-um-Xch" firstAttribute="leading" secondItem="J1h-0T-reW" secondAttribute="trailing" constant="8" id="lbn-85-hLQ"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="textLabel" destination="tXY-b7-YUR" id="JMu-EL-I3C"/>

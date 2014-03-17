@@ -67,6 +67,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
     NSArray *oldVisibleSections = _visibleSections;
     NSDictionary *oldLookupCache = [self lookupCacheForItemsInSections:oldVisibleSections];
     NSDictionary *oldSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:oldVisibleSections];
+    NSDictionary *oldItemsBySection = [self itemsGroupedBySectionInSections:oldVisibleSections];
 
     _visibleSections = [self visibleSectionsForObjects:_objects];
     _visibleSectionsByGroupingValue = [self indexSectionsByGroupingValue:_visibleSections];
@@ -79,12 +80,12 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         NSMutableArray *addedItems = [NSMutableArray new];
         NSMutableArray *movedItems = [NSMutableArray new];
         NSMutableArray *removedItems = [NSMutableArray new];
-        NSMutableIndexSet *addedSections = [NSMutableIndexSet new];
-        NSMutableArray *removedSections = [NSMutableArray new];
+        NSMutableIndexSet *indexesOfAddedSections = [NSMutableIndexSet new];
+        NSMutableIndexSet *indexesOfRemovedSections = [NSMutableIndexSet new];
 
         [_visibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
             if (!oldSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
-                [addedSections addIndex:sectionIndex];
+                [indexesOfAddedSections addIndex:sectionIndex];
                 return;
             }
 
@@ -101,23 +102,26 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
             }];
         }];
 
-        for (LSDCollectionSection *section in oldVisibleSections) {
+        [oldVisibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger oldSectionIndex, BOOL *stop) {
             if (!newSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
-                [removedSections addObject:section];
-                continue;
+                [indexesOfRemovedSections addIndex:oldSectionIndex];
+                return;
             }
 
-            [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
+            [oldItemsBySection[section.identifierOrGroupingValue] enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
                 NSIndexPath *newIndexPath = [self indexPathForItem:item usingLookupCache:newLookupCache];
                 if (!newIndexPath) {
-                    [removedItems addObject:item];
+                    NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+                    [removedItems addObject:oldIndexPath];
                 }
             }];
-        }
+        }];
 
         changeset.itemIndexPaths = newLookupCache;
         changeset.addedItems = [addedItems copy];
-        changeset.indexesOfInsertedSections = [addedSections copy];
+        changeset.indexesOfInsertedSections = [indexesOfAddedSections copy];
+        changeset.indexesOfRemovedSections = [indexesOfRemovedSections copy];
+        changeset.indexPathsOfRemovedItems = [[removedItems reverseObjectEnumerator] allObjects];
     } else {
         changeset.fullRelolad = YES;
     }
@@ -261,6 +265,15 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
     for (LSDCollectionSection *section in sections) {
         id key = section.identifierOrGroupingValue;
         grouped[key] = section;
+    }
+    return grouped;
+}
+
+- (NSDictionary *)itemsGroupedBySectionInSections:(NSArray *)sections {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (LSDCollectionSection *section in sections) {
+        id key = section.identifierOrGroupingValue;
+        grouped[key] = section.items;
     }
     return grouped;
 }
