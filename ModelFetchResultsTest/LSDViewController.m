@@ -21,11 +21,13 @@
     [super viewDidLoad];
 
     _collectionPresentation = [LSDCollectionPresentation new];
-    _collectionPresentation.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES]];
+//    _collectionPresentation.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES]];
+    _collectionPresentation.sectionSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"groupingValue" ascending:YES]];
 
     _collectionPresentation.predefinedSections = @[
         [[LSDCollectionSection alloc] initWithDictionary:@{
             @"title": @"Cheap Items",
+            @"groupingValue": @(NSIntegerMin),
             @"selectionCriteria": [NSPredicate predicateWithFormat:@"price < 1000"],
         }]
     ];

@@ -131,6 +131,11 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         }
     }
 
+
+    if (_sectionSortDescriptors.count > 0) {
+        [visibleSections sortUsingDescriptors:_sectionSortDescriptors];
+    }
+
     _visibleSections = [visibleSections copy];
 
     LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
