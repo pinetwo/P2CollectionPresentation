@@ -52,6 +52,10 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
     NSMutableArray *visibleSections = [NSMutableArray new];
     NSArray *remainingObjects = _objects;
 
+    if (_itemSortDescriptors.count > 0) {
+        remainingObjects = [remainingObjects sortedArrayUsingDescriptors:_itemSortDescriptors];
+    }
+
     for (LSDCollectionSection *section in _predefinedSections) {
         NSArray *selectedItems;
         if (section.selectionCriteria) {

@@ -21,7 +21,7 @@
     [super viewDidLoad];
 
     _collectionPresentation = [LSDCollectionPresentation new];
-    _adapter.collectionPresentation = _collectionPresentation;
+    _collectionPresentation.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES]];
 
     _collectionPresentation.predefinedSections = @[
         [[LSDCollectionSection alloc] initWithDictionary:@{
@@ -38,6 +38,7 @@
         section.title = [NSString stringWithFormat:@"%@000", section.groupingValue];
     };
 
+    _adapter.collectionPresentation = _collectionPresentation;
     [_collectionPresentation bindToModel:[SampleRepository sharedRepository] keyPath:@"items"];
 }
 
