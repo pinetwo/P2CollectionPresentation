@@ -86,9 +86,9 @@
             if (changeSet.indexesOfInsertedSections.count > 0) {
                 [_collectionView insertSections:changeSet.indexesOfInsertedSections];
             }
-            [changeSet obtainInsertedItemsWithBlock:^(NSArray *indexPaths) {
-                [_collectionView insertItemsAtIndexPaths:indexPaths];
-            }];
+            if (changeSet.indexPathsOfAddedItems.count > 0) {
+                [_collectionView insertItemsAtIndexPaths:changeSet.indexPathsOfAddedItems];
+            }
         } completion:^(BOOL finished) {
         }];
     }

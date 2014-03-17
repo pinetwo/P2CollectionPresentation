@@ -77,9 +77,9 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         NSDictionary *newLookupCache = [self lookupCacheForItemsInSections:_visibleSections];
         NSDictionary *newSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:_visibleSections];
 
-        NSMutableArray *addedItems = [NSMutableArray new];
+        NSMutableArray *indexPathsOfAddedItems = [NSMutableArray new];
         NSMutableArray *movedItems = [NSMutableArray new];
-        NSMutableArray *removedItems = [NSMutableArray new];
+        NSMutableArray *indexPathsOfRemovedItems = [NSMutableArray new];
         NSMutableIndexSet *indexesOfAddedSections = [NSMutableIndexSet new];
         NSMutableIndexSet *indexesOfRemovedSections = [NSMutableIndexSet new];
 
@@ -91,13 +91,13 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
             [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
                 NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
+                NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:idx inSection:section.visibleSectionIndex];
                 if (oldIndexPath) {
-                    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:idx inSection:section.visibleSectionIndex];
                     if (![oldIndexPath isEqual:newIndexPath]) {
                         [movedItems addObject:item];
                     }
                 } else {
-                    [addedItems addObject:item];
+                    [indexPathsOfAddedItems addObject:newIndexPath];
                 }
             }];
         }];
@@ -112,16 +112,16 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
                 NSIndexPath *newIndexPath = [self indexPathForItem:item usingLookupCache:newLookupCache];
                 if (!newIndexPath) {
                     NSIndexPath *oldIndexPath = [self indexPathForItem:item usingLookupCache:oldLookupCache];
-                    [removedItems addObject:oldIndexPath];
+                    [indexPathsOfRemovedItems addObject:oldIndexPath];
                 }
             }];
         }];
 
         changeset.itemIndexPaths = newLookupCache;
-        changeset.addedItems = [addedItems copy];
+        changeset.indexPathsOfAddedItems = [indexPathsOfAddedItems copy];
         changeset.indexesOfInsertedSections = [indexesOfAddedSections copy];
         changeset.indexesOfRemovedSections = [indexesOfRemovedSections copy];
-        changeset.indexPathsOfRemovedItems = [[removedItems reverseObjectEnumerator] allObjects];
+        changeset.indexPathsOfRemovedItems = [[indexPathsOfRemovedItems reverseObjectEnumerator] allObjects];
     } else {
         changeset.fullRelolad = YES;
     }
