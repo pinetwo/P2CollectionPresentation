@@ -14,8 +14,10 @@ extern NSString *const P2CollectionPresentationChangeSetKey; // P2CollectionChan
 
 // KVO helpers
 - (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath;
+- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath modelDidChangeNotificationName:(NSString *)modelDidChangeNotificationName;
 @property(nonatomic, readonly) id model;
 @property(nonatomic, copy, readonly) NSString *keyPath;
+@property(nonatomic, copy, readonly) NSString *modelDidChangeNotificationName;
 
 
 // inputs
@@ -24,6 +26,7 @@ extern NSString *const P2CollectionPresentationChangeSetKey; // P2CollectionChan
 
 @property(nonatomic, copy) NSArray *predefinedSections;
 @property(nonatomic, copy) NSArray *itemSortDescriptors;
+@property(nonatomic, copy) NSPredicate *itemFilteringPredicate;
 @property(nonatomic, copy) NSArray *sectionSortDescriptors;
 @property(nonatomic, copy) NSString *groupingKeyPath;
 @property(nonatomic, copy) P2CollectionSectionConfigurationBlock sectionConfigurationBlock;

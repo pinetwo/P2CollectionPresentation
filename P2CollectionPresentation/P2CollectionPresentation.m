@@ -15,25 +15,44 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 }
 
 - (void)dealloc {
-    [self bindToModel:nil keyPath:nil];
+    [self bindToModel:nil keyPath:nil modelDidChangeNotificationName:nil];
 }
 
 
 #pragma mark - Observation Helpers
 
 - (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath {
+    [self bindToModel:model keyPath:keyPath modelDidChangeNotificationName:nil];
+}
+
+- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath modelDidChangeNotificationName:(NSString *)modelDidChangeNotificationName {
     if (_model && _keyPath) {
-        [_model removeObserver:self forKeyPath:_keyPath];
+        if (_modelDidChangeNotificationName) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:_modelDidChangeNotificationName object:nil];
+        } else {
+            [_model removeObserver:self forKeyPath:_keyPath];
+        }
     }
 
     _model = model;
     _keyPath = keyPath;
+    _modelDidChangeNotificationName = modelDidChangeNotificationName;
 
     if (_model && _keyPath) {
-        [_model addObserver:self forKeyPath:_keyPath options:0 context:NULL];
+        if (_modelDidChangeNotificationName) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_modelDidChange:) name:_modelDidChangeNotificationName object:nil];
+        } else {
+            [_model addObserver:self forKeyPath:_keyPath options:0 context:NULL];
+        }
     }
 
     [self _updateObjectsFromModel];
+}
+
+- (void)_modelDidChange:(NSNotification *)notification {
+    if (notification.object == nil || notification.object == _model) {
+        [self _updateObjectsFromModel];
+    }
 }
 
 - (void)_updateObjectsFromModel {
@@ -60,6 +79,13 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
     _predefinedSections = [predefinedSections copy];
 }
 
+- (void)setItemFilteringPredicate:(NSPredicate *)itemFilteringPredicate {
+    if (_itemFilteringPredicate != itemFilteringPredicate) {
+        _itemFilteringPredicate = itemFilteringPredicate;
+        [self reloadData];
+    }
+}
+
 
 #pragma mark - The core :-)
 
@@ -81,7 +107,12 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
     NSDictionary *oldSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:oldVisibleSections];
     NSDictionary *oldItemsBySection = [self itemsGroupedBySectionInSections:oldVisibleSections];
 
-    _visibleSections = [self visibleSectionsForObjects:_objects];
+    NSArray *objects = _objects;
+    if (_itemFilteringPredicate) {
+        objects = [objects filteredArrayUsingPredicate:_itemFilteringPredicate];
+    }
+
+    _visibleSections = [self visibleSectionsForObjects:objects];
     _visibleSectionsByGroupingValue = [self indexSectionsByGroupingValue:_visibleSections];
 
     NSLog(@"New visibleSections = %@", _visibleSections);
@@ -199,7 +230,7 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 
 - (NSArray *)visibleSectionsForObjects:(NSArray *)objects {
     NSMutableArray *visibleSections = [NSMutableArray new];
-    NSArray *remainingObjects = _objects;
+    NSArray *remainingObjects = objects;
 
     if (_itemSortDescriptors.count > 0) {
         remainingObjects = [remainingObjects sortedArrayUsingDescriptors:_itemSortDescriptors];
