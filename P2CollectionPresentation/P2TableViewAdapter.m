@@ -74,22 +74,22 @@
 }
 
 - (void)applyChangeSet:(P2CollectionChangeSet *)changeSet {
-    if (changeSet.fullRelolad) {
+    P2AnimationHint hint = P2AnimationHintGetCurrent();
+    UITableViewRowAnimation animation;
+    switch (hint) {
+        case P2AnimationHintNone:
+        case P2AnimationHintInitialLoad:
+            animation = UITableViewRowAnimationNone; break;
+        case P2AnimationHintFiltering:
+            animation = UITableViewRowAnimationFade; break;
+        case P2AnimationHintModelAction:
+        default:
+            animation = UITableViewRowAnimationAutomatic; break;
+    }
+
+    if (changeSet.fullRelolad || animation == UITableViewRowAnimationNone) {
         [_tableView reloadData];
     } else {
-        UITableViewRowAnimation animation;
-        P2AnimationHint hint = P2AnimationHintGetCurrent();
-        switch (hint) {
-            case P2AnimationHintNone:
-            case P2AnimationHintInitialLoad:
-                animation = UITableViewRowAnimationNone; break;
-            case P2AnimationHintFiltering:
-                animation = UITableViewRowAnimationFade; break;
-            case P2AnimationHintModelAction:
-            default:
-                animation = UITableViewRowAnimationAutomatic; break;
-        }
-
         [_tableView beginUpdates];
         if (changeSet.indexPathsOfRemovedItems.count > 0) {
             [_tableView deleteRowsAtIndexPaths:changeSet.indexPathsOfRemovedItems withRowAnimation:animation];

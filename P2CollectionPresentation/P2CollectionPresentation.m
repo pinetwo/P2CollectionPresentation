@@ -108,9 +108,6 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
     NSDictionary *oldItemsBySection = [self itemsGroupedBySectionInSections:oldVisibleSections];
 
     NSArray *objects = _objects;
-    if (_itemFilteringPredicate) {
-        objects = [objects filteredArrayUsingPredicate:_itemFilteringPredicate];
-    }
 
     _visibleSections = [self visibleSectionsForObjects:objects];
     _visibleSectionsByGroupingValue = [self indexSectionsByGroupingValue:_visibleSections];
@@ -228,6 +225,13 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
                                                       userInfo:@{P2CollectionPresentationChangeSetKey: changeset}];
 }
 
+- (void)finalizeSection:(P2CollectionSection *)section items:(NSArray *)items {
+    if (_itemFilteringPredicate) {
+        items = [items filteredArrayUsingPredicate:_itemFilteringPredicate];
+    }
+    section.items = items;
+}
+
 - (NSArray *)visibleSectionsForObjects:(NSArray *)objects {
     NSMutableArray *visibleSections = [NSMutableArray new];
     NSArray *remainingObjects = objects;
@@ -252,7 +256,7 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
             selectedItems = remainingObjects;
         }
 
-        section.items = selectedItems;
+        [self finalizeSection:section items:selectedItems];
         remainingObjects = [remainingObjects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             return ![selectedItems containsObject:evaluatedObject];
         }]];
@@ -261,7 +265,7 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
             _sectionConfigurationBlock(section);
         }
 
-        if (section.items.count > 0) {
+        if (selectedItems.count > 0) {
             [visibleSections addObject:section];
         } else {
             section.visibleSectionIndex = NSIntegerMin;
@@ -288,7 +292,7 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 
             for (id groupingValue in groupingValues) {
                 P2CollectionSection *section = [self newSectionForGroupingValue:groupingValue];
-                section.items = groupedItems[groupingValue];
+                [self finalizeSection:section items:groupedItems[groupingValue]];
                 if (_dynamicSectionConfigurationBlock) {
                     _dynamicSectionConfigurationBlock(section);
                 }
@@ -299,7 +303,7 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
             }
         } else {
             P2CollectionSection *section = [self newSectionForGroupingValue:nil];
-            section.items = remainingObjects;
+            [self finalizeSection:section items:remainingObjects];
             if (_dynamicSectionConfigurationBlock) {
                 _dynamicSectionConfigurationBlock(section);
             }
