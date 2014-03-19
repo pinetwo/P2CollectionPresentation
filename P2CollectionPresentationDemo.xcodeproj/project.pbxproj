@@ -10,11 +10,6 @@
 		35D5BAFF18D70C24006D55FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BAFE18D70C24006D55FA /* Foundation.framework */; };
 		35D5BB0118D70C24006D55FA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BB0018D70C24006D55FA /* CoreGraphics.framework */; };
 		35D5BB0318D70C24006D55FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BB0218D70C24006D55FA /* UIKit.framework */; };
-		35D5BB1E18D70C25006D55FA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BB1D18D70C25006D55FA /* XCTest.framework */; };
-		35D5BB1F18D70C25006D55FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BAFE18D70C24006D55FA /* Foundation.framework */; };
-		35D5BB2018D70C25006D55FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D5BB0218D70C24006D55FA /* UIKit.framework */; };
-		35D5BB2818D70C25006D55FA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35D5BB2618D70C25006D55FA /* InfoPlist.strings */; };
-		35D5BB2A18D70C25006D55FA /* ModelFetchResultsTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D5BB2918D70C25006D55FA /* ModelFetchResultsTestTests.m */; };
 		43BA959C18D9CC1800CB202D /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BA959118D9CC1800CB202D /* ATScheduling.m */; };
 		43BA959D18D9CC1800CB202D /* P2CollectionChangeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BA959318D9CC1800CB202D /* P2CollectionChangeSet.m */; };
 		43BA959E18D9CC1800CB202D /* P2CollectionPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BA959518D9CC1800CB202D /* P2CollectionPresentation.m */; };
@@ -34,26 +29,12 @@
 		43F2EDB218D9CE96009F53A2 /* SampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA718D9CE96009F53A2 /* SampleRepository.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		35D5BB2118D70C25006D55FA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 35D5BAF318D70C24006D55FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 35D5BAFA18D70C24006D55FA;
-			remoteInfo = ModelFetchResultsTest;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		35D5BAFB18D70C24006D55FA /* P2CollectionPresentationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P2CollectionPresentationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35D5BAFE18D70C24006D55FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		35D5BB0018D70C24006D55FA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		35D5BB0218D70C24006D55FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		35D5BB1C18D70C25006D55FA /* P2CollectionPresentationDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = P2CollectionPresentationDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35D5BB1D18D70C25006D55FA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		35D5BB2518D70C25006D55FA /* ModelFetchResultsTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ModelFetchResultsTestTests-Info.plist"; sourceTree = "<group>"; };
-		35D5BB2718D70C25006D55FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		35D5BB2918D70C25006D55FA /* ModelFetchResultsTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelFetchResultsTestTests.m; sourceTree = "<group>"; };
 		43BA959018D9CC1800CB202D /* ATScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATScheduling.h; sourceTree = "<group>"; };
 		43BA959118D9CC1800CB202D /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
 		43BA959218D9CC1800CB202D /* P2CollectionChangeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2CollectionChangeSet.h; sourceTree = "<group>"; };
@@ -97,16 +78,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		35D5BB1918D70C25006D55FA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				35D5BB1E18D70C25006D55FA /* XCTest.framework in Frameworks */,
-				35D5BB2018D70C25006D55FA /* UIKit.framework in Frameworks */,
-				35D5BB1F18D70C25006D55FA /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -115,7 +86,6 @@
 			children = (
 				43BA958F18D9CC1800CB202D /* P2CollectionPresentation */,
 				43F2ED9318D9CE96009F53A2 /* P2CollectionPresentationDemo */,
-				35D5BB2318D70C25006D55FA /* ModelFetchResultsTestTests */,
 				35D5BAFD18D70C24006D55FA /* Frameworks */,
 				35D5BAFC18D70C24006D55FA /* Products */,
 			);
@@ -125,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				35D5BAFB18D70C24006D55FA /* P2CollectionPresentationDemo.app */,
-				35D5BB1C18D70C25006D55FA /* P2CollectionPresentationDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,24 +108,6 @@
 				35D5BB1D18D70C25006D55FA /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		35D5BB2318D70C25006D55FA /* ModelFetchResultsTestTests */ = {
-			isa = PBXGroup;
-			children = (
-				35D5BB2918D70C25006D55FA /* ModelFetchResultsTestTests.m */,
-				35D5BB2418D70C25006D55FA /* Supporting Files */,
-			);
-			path = ModelFetchResultsTestTests;
-			sourceTree = "<group>";
-		};
-		35D5BB2418D70C25006D55FA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				35D5BB2518D70C25006D55FA /* ModelFetchResultsTestTests-Info.plist */,
-				35D5BB2618D70C25006D55FA /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		43BA958F18D9CC1800CB202D /* P2CollectionPresentation */ = {
@@ -223,24 +174,6 @@
 			productReference = 35D5BAFB18D70C24006D55FA /* P2CollectionPresentationDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		35D5BB1B18D70C25006D55FA /* P2CollectionPresentationDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 35D5BB3018D70C25006D55FA /* Build configuration list for PBXNativeTarget "P2CollectionPresentationDemoTests" */;
-			buildPhases = (
-				35D5BB1818D70C25006D55FA /* Sources */,
-				35D5BB1918D70C25006D55FA /* Frameworks */,
-				35D5BB1A18D70C25006D55FA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				35D5BB2218D70C25006D55FA /* PBXTargetDependency */,
-			);
-			name = P2CollectionPresentationDemoTests;
-			productName = ModelFetchResultsTestTests;
-			productReference = 35D5BB1C18D70C25006D55FA /* P2CollectionPresentationDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -250,11 +183,6 @@
 				CLASSPREFIX = LSD;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Leonty Deriglazov";
-				TargetAttributes = {
-					35D5BB1B18D70C25006D55FA = {
-						TestTargetID = 35D5BAFA18D70C24006D55FA;
-					};
-				};
 			};
 			buildConfigurationList = 35D5BAF618D70C24006D55FA /* Build configuration list for PBXProject "P2CollectionPresentationDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -270,7 +198,6 @@
 			projectRoot = "";
 			targets = (
 				35D5BAFA18D70C24006D55FA /* P2CollectionPresentationDemo */,
-				35D5BB1B18D70C25006D55FA /* P2CollectionPresentationDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -284,14 +211,6 @@
 				43F2EDAE18D9CE96009F53A2 /* P2CollectionPresentationDemo-Info.plist in Resources */,
 				43F2EDAC18D9CE96009F53A2 /* P2CollectionPresentationDemo-InfoPlist.strings in Resources */,
 				43F2EDA818D9CE96009F53A2 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		35D5BB1A18D70C25006D55FA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				35D5BB2818D70C25006D55FA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,33 +237,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		35D5BB1818D70C25006D55FA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				35D5BB2A18D70C25006D55FA /* ModelFetchResultsTestTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		35D5BB2218D70C25006D55FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 35D5BAFA18D70C24006D55FA /* P2CollectionPresentationDemo */;
-			targetProxy = 35D5BB2118D70C25006D55FA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		35D5BB2618D70C25006D55FA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				35D5BB2718D70C25006D55FA /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		43F2ED9418D9CE96009F53A2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -462,46 +357,6 @@
 			};
 			name = Release;
 		};
-		35D5BB3118D70C25006D55FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ModelFetchResultsTest.app/ModelFetchResultsTest";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ModelFetchResultsTest/ModelFetchResultsTest-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ModelFetchResultsTestTests/ModelFetchResultsTestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		35D5BB3218D70C25006D55FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ModelFetchResultsTest.app/ModelFetchResultsTest";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ModelFetchResultsTest/ModelFetchResultsTest-Prefix.pch";
-				INFOPLIST_FILE = "ModelFetchResultsTestTests/ModelFetchResultsTestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -519,15 +374,6 @@
 			buildConfigurations = (
 				35D5BB2E18D70C25006D55FA /* Debug */,
 				35D5BB2F18D70C25006D55FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		35D5BB3018D70C25006D55FA /* Build configuration list for PBXNativeTarget "P2CollectionPresentationDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				35D5BB3118D70C25006D55FA /* Debug */,
-				35D5BB3218D70C25006D55FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
