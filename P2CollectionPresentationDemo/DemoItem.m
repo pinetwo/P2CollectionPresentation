@@ -14,10 +14,8 @@ static NSString *RandomString(NSArray *array) {
     if (self) {
         NSArray *adjectives = [@"adorable burdensome cheerful decent elaborate fabulous hideous impeccable jovial kosher likable nifty organic playful quarrelsome reckless silly tedious unruly vibrant whimsical yummy zealous" componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSArray *colors = [@"amber blueberry cerise denim emerald fuchsia ginger honeydew ivory jasmine khaki lemon mahogany neon ochre pastel raspberry scarlet tomato ultramarine vanilla waterspout xanadu zaffre" componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        // TODO: pull more from http://phrontistery.info/m.html etc
-        NSArray *nouns = [@"auxanometer boggart chasseur drail ekka fandango gambeson hawse ixia jabberwock kersey lorimer" componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        _title = [NSString stringWithFormat:@"%@ %@ %@", RandomString(adjectives), RandomString(colors), RandomString(nouns)];
+        _title = [NSString stringWithFormat:@"%@ %@", RandomString(adjectives), RandomString(colors)];
         [self randomizePrice];
     }
     return self;
@@ -36,7 +34,7 @@ static NSString *RandomString(NSArray *array) {
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"(%d %@)", (int)_price, [_title componentsSeparatedByString:@" "][0]];
+    return [NSString stringWithFormat:@"(%d %@)", (int)_price, _title];
 }
 
 @end
