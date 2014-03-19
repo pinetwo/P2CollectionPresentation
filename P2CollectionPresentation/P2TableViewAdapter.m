@@ -4,6 +4,7 @@
 #import "P2CollectionSection.h"
 #import "P2CollectionChangeSet.h"
 #import "P2ModelAwareObject.h"
+#import "P2AnimationHinting.h"
 
 
 #define NSNC [NSNotificationCenter defaultCenter]
@@ -76,16 +77,29 @@
     if (changeSet.fullRelolad) {
         [_tableView reloadData];
     } else {
+        UITableViewRowAnimation animation;
+        P2AnimationHint hint = P2AnimationHintGetCurrent();
+        switch (hint) {
+            case P2AnimationHintNone:
+            case P2AnimationHintInitialLoad:
+                animation = UITableViewRowAnimationNone; break;
+            case P2AnimationHintFiltering:
+                animation = UITableViewRowAnimationFade; break;
+            case P2AnimationHintModelAction:
+            default:
+                animation = UITableViewRowAnimationAutomatic; break;
+        }
+
         [_tableView beginUpdates];
         if (changeSet.indexPathsOfRemovedItems.count > 0) {
-            [_tableView deleteRowsAtIndexPaths:changeSet.indexPathsOfRemovedItems withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView deleteRowsAtIndexPaths:changeSet.indexPathsOfRemovedItems withRowAnimation:animation];
         }
         if (changeSet.indexesOfRemovedSections.count > 0) {
-            [_tableView deleteSections:changeSet.indexesOfRemovedSections withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView deleteSections:changeSet.indexesOfRemovedSections withRowAnimation:animation];
         }
 
         if (changeSet.indexesOfInsertedSections.count > 0) {
-            [_tableView insertSections:changeSet.indexesOfInsertedSections withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView insertSections:changeSet.indexesOfInsertedSections withRowAnimation:animation];
         }
 
         [changeSet enumerateMovedItemsWithBlock:^(NSIndexPath *indexPath, NSIndexPath *newIndexPath) {
@@ -93,7 +107,7 @@
         }];
 
         if (changeSet.indexPathsOfAddedItems.count > 0) {
-            [_tableView insertRowsAtIndexPaths:changeSet.indexPathsOfAddedItems withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView insertRowsAtIndexPaths:changeSet.indexPathsOfAddedItems withRowAnimation:animation];
         }
         [_tableView endUpdates];
     }
