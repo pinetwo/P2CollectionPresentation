@@ -1,15 +1,15 @@
 
-#import "LSDCollectionViewAdapter.h"
-#import "LSDCollectionPresentation.h"
-#import "LSDCollectionSection.h"
-#import "LSDCollectionChangeSet.h"
-#import "LSDModelAwareObject.h"
+#import "P2CollectionViewAdapter.h"
+#import "P2CollectionPresentation.h"
+#import "P2CollectionSection.h"
+#import "P2CollectionChangeSet.h"
+#import "P2ModelAwareObject.h"
 
 
 #define NSNC [NSNotificationCenter defaultCenter]
 
 
-@implementation LSDCollectionViewAdapter {
+@implementation P2CollectionViewAdapter {
     BOOL _delegateRespondsTo_reuseIdentifierForItem : 1;
     BOOL _delegateRespondsTo_configureCollectionViewCell : 1;
 }
@@ -19,16 +19,16 @@
     [self _setCollectionView:nil];
 }
 
-- (void)setCollectionPresentation:(LSDCollectionPresentation *)collectionPresentation {
+- (void)setCollectionPresentation:(P2CollectionPresentation *)collectionPresentation {
     [self _setCollectionPresentation:collectionPresentation];
 }
 
 // KVO-safe variant for dealloc
-- (void)_setCollectionPresentation:(LSDCollectionPresentation *)collectionPresentation {
+- (void)_setCollectionPresentation:(P2CollectionPresentation *)collectionPresentation {
     if (collectionPresentation != _collectionPresentation) {
         if (_collectionPresentation) {
             [NSNC removeObserver:self
-                            name:LSDCollectionPresentationDidChangeNotification
+                            name:P2CollectionPresentationDidChangeNotification
                           object:_collectionPresentation];
         }
 
@@ -37,7 +37,7 @@
         if (_collectionPresentation) {
             [NSNC addObserver:self
                      selector:@selector(presentationDidChange:)
-                         name:LSDCollectionPresentationDidChangeNotification
+                         name:P2CollectionPresentationDidChangeNotification
                        object:_collectionPresentation];
         }
 
@@ -61,17 +61,17 @@
     }
 }
 
-- (void)setDelegate:(id<LSDCollectionViewAdapterDelegate>)delegate {
+- (void)setDelegate:(id<P2CollectionViewAdapterDelegate>)delegate {
     _delegate = delegate;
     _delegateRespondsTo_reuseIdentifierForItem = [delegate respondsToSelector:@selector(reuseIdentifierForItem:atIndexPath:inSection:ofCollectionViewAdapter:)];
     _delegateRespondsTo_configureCollectionViewCell = [delegate respondsToSelector:@selector(configureCollectionViewCell:forItem:atIndexPath:inSection:ofCollectionViewAdapter:)];
 }
 
 - (void)presentationDidChange:(NSNotification *)notification {
-    [self applyChangeSet:notification.userInfo[LSDCollectionPresentationChangeSetKey]];
+    [self applyChangeSet:notification.userInfo[P2CollectionPresentationChangeSetKey]];
 }
 
-- (void)applyChangeSet:(LSDCollectionChangeSet *)changeSet {
+- (void)applyChangeSet:(P2CollectionChangeSet *)changeSet {
     if (changeSet.fullRelolad) {
         [_collectionView reloadData];
     } else {
@@ -120,12 +120,12 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)sectionIndex {
-    LSDCollectionSection *section = _collectionPresentation.visibleSections[sectionIndex];
+    P2CollectionSection *section = _collectionPresentation.visibleSections[sectionIndex];
     return section.items.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    LSDCollectionSection *section = _collectionPresentation.visibleSections[indexPath.section];
+    P2CollectionSection *section = _collectionPresentation.visibleSections[indexPath.section];
     id item = section.items[indexPath.item];
 
     NSString *reuseIdentifier = nil;
@@ -139,8 +139,8 @@
 
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
 
-    if ([cell conformsToProtocol:@protocol(LSDModelAwareObject)]) {
-        [(id<LSDModelAwareObject>)cell setRepresentedObject:item];
+    if ([cell conformsToProtocol:@protocol(P2ModelAwareObject)]) {
+        [(id<P2ModelAwareObject>)cell setRepresentedObject:item];
     }
 
     if (_delegateRespondsTo_configureCollectionViewCell) {
@@ -155,12 +155,12 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    LSDCollectionSection *section = _collectionPresentation.visibleSections[indexPath.section];
+    P2CollectionSection *section = _collectionPresentation.visibleSections[indexPath.section];
     NSString *reuseIdentifier = section.supplementaryViewReuseIdentifiers[kind];
     if (reuseIdentifier) {
         UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-        if ([view conformsToProtocol:@protocol(LSDModelAwareObject)]) {
-            [(id<LSDModelAwareObject>)view setRepresentedObject:section];
+        if ([view conformsToProtocol:@protocol(P2ModelAwareObject)]) {
+            [(id<P2ModelAwareObject>)view setRepresentedObject:section];
         }
         return view;
     } else {

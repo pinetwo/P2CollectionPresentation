@@ -1,14 +1,7 @@
-//
-//  LSDAppDelegate.m
-//  ModelFetchResultsTest
-//
-//  Created by Leonty Deriglazov on 17/03/2014.
-//  Copyright (c) 2014 Leonty Deriglazov. All rights reserved.
-//
 
-#import "LSDAppDelegate.h"
+#import "DemoAppDelegate.h"
 
-@implementation LSDAppDelegate
+@implementation DemoAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -1,16 +1,16 @@
 
 #import <Foundation/Foundation.h>
-#import "LSDCollectionSection.h"
+#import "P2CollectionSection.h"
 
 
-extern NSString *const LSDCollectionPresentationDidChangeNotification;
-extern NSString *const LSDCollectionPresentationChangeSetKey; // LSDCollectionChangeSet
+extern NSString *const P2CollectionPresentationDidChangeNotification;
+extern NSString *const P2CollectionPresentationChangeSetKey; // P2CollectionChangeSet
 
 
-@class LSDCollectionSection;
+@class P2CollectionSection;
 
 
-@interface LSDCollectionPresentation : NSObject
+@interface P2CollectionPresentation : NSObject
 
 // KVO helpers
 - (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath;
@@ -26,8 +26,8 @@ extern NSString *const LSDCollectionPresentationChangeSetKey; // LSDCollectionCh
 @property(nonatomic, copy) NSArray *itemSortDescriptors;
 @property(nonatomic, copy) NSArray *sectionSortDescriptors;
 @property(nonatomic, copy) NSString *groupingKeyPath;
-@property(nonatomic, copy) LSDCollectionSectionConfigurationBlock sectionConfigurationBlock;
-@property(nonatomic, copy) LSDCollectionSectionConfigurationBlock dynamicSectionConfigurationBlock;
+@property(nonatomic, copy) P2CollectionSectionConfigurationBlock sectionConfigurationBlock;
+@property(nonatomic, copy) P2CollectionSectionConfigurationBlock dynamicSectionConfigurationBlock;
 
 // outputs
 @property(nonatomic, copy) NSArray *visibleSections;

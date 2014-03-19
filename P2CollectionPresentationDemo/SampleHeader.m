@@ -10,7 +10,7 @@
 
 @implementation SampleHeader
 
-- (void)setRepresentedObject:(LSDCollectionSection *)representedObject {
+- (void)setRepresentedObject:(P2CollectionSection *)representedObject {
     _representedObject = representedObject;
     _textLabel.text = representedObject.title;
 }

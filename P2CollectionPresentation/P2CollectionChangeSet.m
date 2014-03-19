@@ -1,7 +1,7 @@
 
-#import "LSDCollectionChangeSet.h"
+#import "P2CollectionChangeSet.h"
 
-@implementation LSDCollectionChangeSet
+@implementation P2CollectionChangeSet
 
 - (void)enumerateMovedItemsWithBlock:(void(^)(NSIndexPath *indexPath, NSIndexPath *newIndexPath))block {
     for (NSArray *pair in _movedItems) {

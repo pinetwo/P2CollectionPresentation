@@ -1,15 +1,15 @@
 
-#import "LSDCollectionPresentation.h"
-#import "LSDCollectionSection.h"
-#import "LSDCollectionChangeSet.h"
+#import "P2CollectionPresentation.h"
+#import "P2CollectionSection.h"
+#import "P2CollectionChangeSet.h"
 #import "ATScheduling.h"
 
 
-NSString *const LSDCollectionPresentationDidChangeNotification = @"LSDCollectionPresentationDidChange";
-NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
+NSString *const P2CollectionPresentationDidChangeNotification = @"P2CollectionPresentationDidChange";
+NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 
 
-@implementation LSDCollectionPresentation {
+@implementation P2CollectionPresentation {
     NSDictionary *_visibleSectionsByGroupingValue;
     ATCoalescedState _reloadDataState;
 }
@@ -51,7 +51,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 #pragma mark - Inputs
 
 - (void)setPredefinedSections:(NSArray *)predefinedSections {
-    [predefinedSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger idx, BOOL *stop) {
+    [predefinedSections enumerateObjectsUsingBlock:^(P2CollectionSection *section, NSUInteger idx, BOOL *stop) {
         if (!section.identifier) {
             section.identifier = [NSString stringWithFormat:@"predefined-%d", (int)idx];
         }
@@ -86,7 +86,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
     NSLog(@"New visibleSections = %@", _visibleSections);
 
-    LSDCollectionChangeSet *changeset = [[LSDCollectionChangeSet alloc] init];
+    P2CollectionChangeSet *changeset = [[P2CollectionChangeSet alloc] init];
     if (oldVisibleSections) {
         NSDictionary *newLookupCache = [self lookupCacheForItemsInSections:_visibleSections];
         NSDictionary *newSectionsByIdentifierOrGroupingValue = [self indexSectionsByIdentifierOrGroupingValue:_visibleSections];
@@ -97,7 +97,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         NSMutableIndexSet *indexesOfAddedSections = [NSMutableIndexSet new];
         NSMutableIndexSet *indexesOfRemovedSections = [NSMutableIndexSet new];
 
-        [_visibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
+        [_visibleSections enumerateObjectsUsingBlock:^(P2CollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
             if (!oldSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
                 [indexesOfAddedSections addIndex:sectionIndex];
 
@@ -120,7 +120,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
             }
         }];
 
-        [oldVisibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger oldSectionIndex, BOOL *stop) {
+        [oldVisibleSections enumerateObjectsUsingBlock:^(P2CollectionSection *section, NSUInteger oldSectionIndex, BOOL *stop) {
             if (!newSectionsByIdentifierOrGroupingValue[section.identifierOrGroupingValue]) {
                 [indexesOfRemovedSections addIndex:oldSectionIndex];
                 return;
@@ -192,9 +192,9 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         changeset.fullRelolad = YES;
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:LSDCollectionPresentationDidChangeNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:P2CollectionPresentationDidChangeNotification
                                                         object:self
-                                                      userInfo:@{LSDCollectionPresentationChangeSetKey: changeset}];
+                                                      userInfo:@{P2CollectionPresentationChangeSetKey: changeset}];
 }
 
 - (NSArray *)visibleSectionsForObjects:(NSArray *)objects {
@@ -205,7 +205,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         remainingObjects = [remainingObjects sortedArrayUsingDescriptors:_itemSortDescriptors];
     }
 
-    for (LSDCollectionSection *section in _predefinedSections) {
+    for (P2CollectionSection *section in _predefinedSections) {
         NSArray *selectedItems;
         if (section.selectionCriteria) {
             selectedItems = [remainingObjects filteredArrayUsingPredicate:section.selectionCriteria];
@@ -256,7 +256,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
             }
 
             for (id groupingValue in groupingValues) {
-                LSDCollectionSection *section = [self newSectionForGroupingValue:groupingValue];
+                P2CollectionSection *section = [self newSectionForGroupingValue:groupingValue];
                 section.items = groupedItems[groupingValue];
                 if (_dynamicSectionConfigurationBlock) {
                     _dynamicSectionConfigurationBlock(section);
@@ -267,7 +267,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
                 [visibleSections addObject:section];
             }
         } else {
-            LSDCollectionSection *section = [self newSectionForGroupingValue:nil];
+            P2CollectionSection *section = [self newSectionForGroupingValue:nil];
             section.items = remainingObjects;
             if (_dynamicSectionConfigurationBlock) {
                 _dynamicSectionConfigurationBlock(section);
@@ -283,17 +283,17 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
         [visibleSections sortUsingDescriptors:_sectionSortDescriptors];
     }
 
-    [visibleSections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger idx, BOOL *stop) {
+    [visibleSections enumerateObjectsUsingBlock:^(P2CollectionSection *section, NSUInteger idx, BOOL *stop) {
         section.visibleSectionIndex = idx;
     }];
 
     return [visibleSections copy];
 }
 
-- (LSDCollectionSection *)newSectionForGroupingValue:(id)groupingValue {
-    LSDCollectionSection *section = _visibleSectionsByGroupingValue[groupingValue ?: [NSNull null]];
+- (P2CollectionSection *)newSectionForGroupingValue:(id)groupingValue {
+    P2CollectionSection *section = _visibleSectionsByGroupingValue[groupingValue ?: [NSNull null]];
     if (!section) {
-        section = [LSDCollectionSection new];
+        section = [P2CollectionSection new];
         section.groupingValue = groupingValue;
     }
     return section;
@@ -301,7 +301,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 - (NSDictionary *)lookupCacheForItemsInSections:(NSArray *)sections {
     NSMutableDictionary *result = [NSMutableDictionary new];
-    [sections enumerateObjectsUsingBlock:^(LSDCollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
+    [sections enumerateObjectsUsingBlock:^(P2CollectionSection *section, NSUInteger sectionIndex, BOOL *stop) {
         [section.items enumerateObjectsUsingBlock:^(id item, NSUInteger itemIndex, BOOL *stop) {
             result[[NSValue valueWithNonretainedObject:item]] = [NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex];
         }];
@@ -315,7 +315,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 - (NSDictionary *)indexSectionsByGroupingValue:(NSArray *)sections {
     NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
-    for (LSDCollectionSection *section in sections) {
+    for (P2CollectionSection *section in sections) {
         if (section.identifier)
             continue;
         id key = section.groupingValue;
@@ -328,7 +328,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 - (NSDictionary *)indexSectionsByIdentifierOrGroupingValue:(NSArray *)sections {
     NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
-    for (LSDCollectionSection *section in sections) {
+    for (P2CollectionSection *section in sections) {
         id key = section.identifierOrGroupingValue;
         grouped[key] = section;
     }
@@ -337,7 +337,7 @@ NSString *const LSDCollectionPresentationChangeSetKey = @"changeset";
 
 - (NSDictionary *)itemsGroupedBySectionInSections:(NSArray *)sections {
     NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
-    for (LSDCollectionSection *section in sections) {
+    for (P2CollectionSection *section in sections) {
         id key = section.identifierOrGroupingValue;
         grouped[key] = section.items;
     }

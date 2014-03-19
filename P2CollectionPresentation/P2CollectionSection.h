@@ -2,18 +2,18 @@
 #import <Foundation/Foundation.h>
 
 
-@class LSDCollectionSection;
+@class P2CollectionSection;
 
 
-typedef void (^LSDCollectionSectionConfigurationBlock)(LSDCollectionSection *section);
+typedef void (^P2CollectionSectionConfigurationBlock)(P2CollectionSection *section);
 
 
-@interface LSDCollectionSection : NSObject
+@interface P2CollectionSection : NSObject
 
 // use property names as keys; everything else goes into userData
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-// inputs (filled in by the client of LSDCollectionPresentation)
+// inputs (filled in by the client of P2CollectionPresentation)
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSDictionary *userData;
 
@@ -29,23 +29,23 @@ typedef void (^LSDCollectionSectionConfigurationBlock)(LSDCollectionSection *sec
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, readonly) NSString *identifierOrGroupingValue;
 
-// Index of a visible section after sorting and filtering, filled in by LSDCollectionPresentation.
+// Index of a visible section after sorting and filtering, filled in by P2CollectionPresentation.
 // NSIntegerMin for invisible sections.
 @property(nonatomic) NSInteger visibleSectionIndex;
 
-// Visible items of a visible section after sorting and filtering, filled in by LSDCollectionPresentation.
+// Visible items of a visible section after sorting and filtering, filled in by P2CollectionPresentation.
 // Empty array for invisible sections.
 @property(nonatomic, copy) NSArray *items;
 
 // Value of groupingKeyPath common for the dynamic section's items.
 //
-// For dynamic sections, this is filled in by LSDCollectionPresentation.
+// For dynamic sections, this is filled in by P2CollectionPresentation.
 // For predefined sections, this can be provided by the client and is nil otherwise.
 @property(nonatomic) id groupingValue;
 
 // An ordinal value which can be useful as a sections sort key.
 //
-// For dynamic sections, this is set by LSDCollectionPresentation, from zero to the number of dynamic sections
+// For dynamic sections, this is set by P2CollectionPresentation, from zero to the number of dynamic sections
 // minus one.
 //
 // For predefined sections, this defaults to NSIntegerMin and can be set by the client to affect the ordering

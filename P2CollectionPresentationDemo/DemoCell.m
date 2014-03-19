@@ -1,16 +1,16 @@
 
-#import "LSDCell.h"
+#import "DemoCell.h"
 #import "SampleItem.h"
 #import "SampleRepository.h"
 
 
-@interface LSDCell ()
+@interface DemoCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end
 
-@implementation LSDCell
+@implementation DemoCell
 
 - (void)awakeFromNib {
     self.backgroundColor = [UIColor redColor];

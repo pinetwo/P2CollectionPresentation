@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LSDCollectionChangeSet : NSObject
+@interface P2CollectionChangeSet : NSObject
 
 @property(nonatomic, getter=isFullReload) BOOL fullRelolad;
 @property(nonatomic) NSDictionary *itemIndexPaths;

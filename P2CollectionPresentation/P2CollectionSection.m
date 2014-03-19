@@ -1,7 +1,7 @@
 
-#import "LSDCollectionSection.h"
+#import "P2CollectionSection.h"
 
-@implementation LSDCollectionSection
+@implementation P2CollectionSection
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
