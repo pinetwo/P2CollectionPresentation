@@ -1,14 +1,14 @@
 
-#import "SampleHeader.h"
+#import "DemoHeader.h"
 
-@interface SampleHeader ()
+@interface DemoHeader ()
 
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end
 
 
-@implementation SampleHeader
+@implementation DemoHeader
 
 - (void)setRepresentedObject:(P2CollectionSection *)representedObject {
     _representedObject = representedObject;

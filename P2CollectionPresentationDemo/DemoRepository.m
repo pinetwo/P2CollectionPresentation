@@ -1,18 +1,18 @@
 
-#import "SampleRepository.h"
-#import "SampleItem.h"
+#import "DemoRepository.h"
+#import "DemoItem.h"
 
 static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
 
-@implementation SampleRepository {
+@implementation DemoRepository {
     NSMutableArray *_items;
 }
 
 + (instancetype)sharedRepository {
-    static SampleRepository *instance;
+    static DemoRepository *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [SampleRepository new];
+        instance = [DemoRepository new];
     });
     return instance;
 }
@@ -30,11 +30,11 @@ static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
 
 - (IBAction)addItem:(id)sender {
     [self willChangeValueForKey:@"items"];
-    [_items addObject:[SampleItem new]];
+    [_items addObject:[DemoItem new]];
     [self didChangeValueForKey:@"items"];
 }
 
-- (void)removeItem:(SampleItem *)item {
+- (void)removeItem:(DemoItem *)item {
     [self willChangeValueForKey:@"items"];
     [_items removeObject:item];
     [self didChangeValueForKey:@"items"];
@@ -64,7 +64,7 @@ static void *SampleRepositoryItemDidChange = "SampleRepositoryItemDidChange";
         int reordered = (rand() % 3) == 0;
         if (added > 0) {
             for (int i = 0; i < added; ++i) {
-                [_items addObject:[SampleItem new]];
+                [_items addObject:[DemoItem new]];
             }
         }
         if (deleted > 0) {

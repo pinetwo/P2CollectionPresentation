@@ -4,8 +4,8 @@
 #import "P2CollectionPresentation.h"
 #import "P2CollectionSection.h"
 #import "DemoCell.h"
-#import "SampleRepository.h"
-#import "SampleItem.h"
+#import "DemoRepository.h"
+#import "DemoItem.h"
 
 @interface DemoViewController () <P2CollectionViewAdapterDelegate>
 
@@ -43,7 +43,7 @@
     };
 
     _adapter.collectionPresentation = _collectionPresentation;
-    [_collectionPresentation bindToModel:[SampleRepository sharedRepository] keyPath:@"items"];
+    [_collectionPresentation bindToModel:[DemoRepository sharedRepository] keyPath:@"items"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +53,7 @@
 }
 
 - (IBAction)addNewItem:(id)sender {
-    [[SampleRepository sharedRepository] addItem:[SampleItem new]];
+    [[DemoRepository sharedRepository] addItem:[DemoItem new]];
 }
 
 - (IBAction)randomizePrice:(id)sender {
@@ -64,7 +64,7 @@
 }
 
 - (IBAction)performCrashTest:(id)sender {
-    _crashTestTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:[SampleRepository sharedRepository] selector:@selector(randomize) userInfo:nil repeats:YES];
+    _crashTestTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:[DemoRepository sharedRepository] selector:@selector(randomize) userInfo:nil repeats:YES];
 }
 
 @end

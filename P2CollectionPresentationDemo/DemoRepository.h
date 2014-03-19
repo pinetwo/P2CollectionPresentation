@@ -1,16 +1,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class SampleItem;
+@class DemoItem;
 
-@interface SampleRepository : NSObject
+@interface DemoRepository : NSObject
 
 + (instancetype)sharedRepository;
 
 @property(nonatomic) NSArray *items;
 
 - (IBAction)addItem:(id)sender;
-- (void)removeItem:(SampleItem *)item;
+- (void)removeItem:(DemoItem *)item;
 
 - (void)randomize;
 

@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SampleItem : NSObject
+@interface DemoItem : NSObject
 
 @property(nonatomic) NSString *title;
 @property(nonatomic) NSInteger price;

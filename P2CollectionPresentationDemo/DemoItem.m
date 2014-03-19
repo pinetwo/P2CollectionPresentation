@@ -1,5 +1,5 @@
 
-#import "SampleItem.h"
+#import "DemoItem.h"
 
 
 static NSString *RandomString(NSArray *array) {
@@ -7,7 +7,7 @@ static NSString *RandomString(NSArray *array) {
 }
 
 
-@implementation SampleItem
+@implementation DemoItem
 
 - (instancetype)init {
     self = [super init];

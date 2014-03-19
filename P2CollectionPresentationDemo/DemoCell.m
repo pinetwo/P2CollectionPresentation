@@ -1,7 +1,7 @@
 
 #import "DemoCell.h"
-#import "SampleItem.h"
-#import "SampleRepository.h"
+#import "DemoItem.h"
+#import "DemoRepository.h"
 
 
 @interface DemoCell ()
@@ -21,12 +21,12 @@
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 
-    SampleItem *item = representedObject;
+    DemoItem *item = representedObject;
     _textLabel.text = [NSString stringWithFormat:@"%@ %@", item.title, @(item.price)];
 }
 
 - (IBAction)delete:(id)sender {
-    [[SampleRepository sharedRepository] removeItem:self.representedObject];
+    [[DemoRepository sharedRepository] removeItem:self.representedObject];
 }
 
 @end

@@ -24,9 +24,9 @@
 		43F2EDAD18D9CE96009F53A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43F2ED9E18D9CE96009F53A2 /* Images.xcassets */; };
 		43F2EDAE18D9CE96009F53A2 /* P2CollectionPresentationDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43F2ED9F18D9CE96009F53A2 /* P2CollectionPresentationDemo-Info.plist */; };
 		43F2EDAF18D9CE96009F53A2 /* P2CollectionPresentationDemo-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA018D9CE96009F53A2 /* P2CollectionPresentationDemo-main.m */; };
-		43F2EDB018D9CE96009F53A2 /* SampleHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA318D9CE96009F53A2 /* SampleHeader.m */; };
-		43F2EDB118D9CE96009F53A2 /* SampleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA518D9CE96009F53A2 /* SampleItem.m */; };
-		43F2EDB218D9CE96009F53A2 /* SampleRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA718D9CE96009F53A2 /* SampleRepository.m */; };
+		43F2EDB018D9CE96009F53A2 /* DemoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA318D9CE96009F53A2 /* DemoHeader.m */; };
+		43F2EDB118D9CE96009F53A2 /* DemoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA518D9CE96009F53A2 /* DemoItem.m */; };
+		43F2EDB218D9CE96009F53A2 /* DemoRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F2EDA718D9CE96009F53A2 /* DemoRepository.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,12 +59,12 @@
 		43F2ED9F18D9CE96009F53A2 /* P2CollectionPresentationDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "P2CollectionPresentationDemo-Info.plist"; sourceTree = "<group>"; };
 		43F2EDA018D9CE96009F53A2 /* P2CollectionPresentationDemo-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "P2CollectionPresentationDemo-main.m"; sourceTree = "<group>"; };
 		43F2EDA118D9CE96009F53A2 /* P2CollectionPresentationDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "P2CollectionPresentationDemo-Prefix.pch"; sourceTree = "<group>"; };
-		43F2EDA218D9CE96009F53A2 /* SampleHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleHeader.h; sourceTree = "<group>"; };
-		43F2EDA318D9CE96009F53A2 /* SampleHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleHeader.m; sourceTree = "<group>"; };
-		43F2EDA418D9CE96009F53A2 /* SampleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleItem.h; sourceTree = "<group>"; };
-		43F2EDA518D9CE96009F53A2 /* SampleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleItem.m; sourceTree = "<group>"; };
-		43F2EDA618D9CE96009F53A2 /* SampleRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleRepository.h; sourceTree = "<group>"; };
-		43F2EDA718D9CE96009F53A2 /* SampleRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleRepository.m; sourceTree = "<group>"; };
+		43F2EDA218D9CE96009F53A2 /* DemoHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoHeader.h; sourceTree = "<group>"; };
+		43F2EDA318D9CE96009F53A2 /* DemoHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoHeader.m; sourceTree = "<group>"; };
+		43F2EDA418D9CE96009F53A2 /* DemoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoItem.h; sourceTree = "<group>"; };
+		43F2EDA518D9CE96009F53A2 /* DemoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoItem.m; sourceTree = "<group>"; };
+		43F2EDA618D9CE96009F53A2 /* DemoRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoRepository.h; sourceTree = "<group>"; };
+		43F2EDA718D9CE96009F53A2 /* DemoRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoRepository.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,12 +139,12 @@
 				43F2ED9918D9CE96009F53A2 /* DemoCell.m */,
 				43F2ED9A18D9CE96009F53A2 /* DemoViewController.h */,
 				43F2ED9B18D9CE96009F53A2 /* DemoViewController.m */,
-				43F2EDA218D9CE96009F53A2 /* SampleHeader.h */,
-				43F2EDA318D9CE96009F53A2 /* SampleHeader.m */,
-				43F2EDA418D9CE96009F53A2 /* SampleItem.h */,
-				43F2EDA518D9CE96009F53A2 /* SampleItem.m */,
-				43F2EDA618D9CE96009F53A2 /* SampleRepository.h */,
-				43F2EDA718D9CE96009F53A2 /* SampleRepository.m */,
+				43F2EDA218D9CE96009F53A2 /* DemoHeader.h */,
+				43F2EDA318D9CE96009F53A2 /* DemoHeader.m */,
+				43F2EDA418D9CE96009F53A2 /* DemoItem.h */,
+				43F2EDA518D9CE96009F53A2 /* DemoItem.m */,
+				43F2EDA618D9CE96009F53A2 /* DemoRepository.h */,
+				43F2EDA718D9CE96009F53A2 /* DemoRepository.m */,
 				43F2ED9E18D9CE96009F53A2 /* Images.xcassets */,
 				43F2ED9C18D9CE96009F53A2 /* P2CollectionPresentationDemo-InfoPlist.strings */,
 				43F2ED9F18D9CE96009F53A2 /* P2CollectionPresentationDemo-Info.plist */,
@@ -226,11 +226,11 @@
 				43F2EDAA18D9CE96009F53A2 /* DemoCell.m in Sources */,
 				43F2EDAF18D9CE96009F53A2 /* P2CollectionPresentationDemo-main.m in Sources */,
 				43BA959C18D9CC1800CB202D /* ATScheduling.m in Sources */,
-				43F2EDB018D9CE96009F53A2 /* SampleHeader.m in Sources */,
+				43F2EDB018D9CE96009F53A2 /* DemoHeader.m in Sources */,
 				43BA95A118D9CC1800CB202D /* P2ModelAwareObject.m in Sources */,
-				43F2EDB218D9CE96009F53A2 /* SampleRepository.m in Sources */,
+				43F2EDB218D9CE96009F53A2 /* DemoRepository.m in Sources */,
 				43BA959D18D9CC1800CB202D /* P2CollectionChangeSet.m in Sources */,
-				43F2EDB118D9CE96009F53A2 /* SampleItem.m in Sources */,
+				43F2EDB118D9CE96009F53A2 /* DemoItem.m in Sources */,
 				43F2EDAB18D9CE96009F53A2 /* DemoViewController.m in Sources */,
 				43BA95A018D9CC1800CB202D /* P2CollectionViewAdapter.m in Sources */,
 				43BA959F18D9CC1800CB202D /* P2CollectionSection.m in Sources */,
