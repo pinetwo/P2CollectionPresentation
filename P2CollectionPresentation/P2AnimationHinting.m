@@ -9,7 +9,7 @@ P2AnimationHint P2AnimationHintGetCurrent() {
 }
 
 static void P2AnimationHintScheduleReset() {
-    uint64_t sequence = g_animationHintResetSequence++;
+    uint64_t sequence = ++g_animationHintResetSequence;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if (sequence == g_animationHintResetSequence) {
