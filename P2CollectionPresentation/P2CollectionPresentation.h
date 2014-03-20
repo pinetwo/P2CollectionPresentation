@@ -33,6 +33,7 @@ extern NSString *const P2CollectionPresentationChangeSetKey; // P2CollectionChan
 @property(nonatomic, copy) P2CollectionSectionConfigurationBlock dynamicSectionConfigurationBlock;
 
 // outputs
-@property(nonatomic, copy) NSArray *visibleSections;
+@property(nonatomic, readonly) NSArray *visibleSections;
+@property(nonatomic, readonly) NSArray *visibleItems;
 
 @end

@@ -381,4 +381,8 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 
 #pragma mark - Outputs
 
+- (NSArray *)visibleItems {
+    return [_visibleSections.firstObject items];
+}
+
 @end
