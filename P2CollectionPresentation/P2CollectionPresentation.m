@@ -15,17 +15,13 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
 }
 
 - (void)dealloc {
-    [self bindToModel:nil keyPath:nil modelDidChangeNotificationName:nil];
+    [self _stopObservation];
 }
 
 
 #pragma mark - Observation Helpers
 
-- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath {
-    [self bindToModel:model keyPath:keyPath modelDidChangeNotificationName:nil];
-}
-
-- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath modelDidChangeNotificationName:(NSString *)modelDidChangeNotificationName {
+- (void)_stopObservation {
     if (_model && _keyPath) {
         if (_modelDidChangeNotificationName) {
             [[NSNotificationCenter defaultCenter] removeObserver:self name:_modelDidChangeNotificationName object:nil];
@@ -33,11 +29,9 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
             [_model removeObserver:self forKeyPath:_keyPath];
         }
     }
+}
 
-    _model = model;
-    _keyPath = keyPath;
-    _modelDidChangeNotificationName = modelDidChangeNotificationName;
-
+- (void)_startObservation {
     if (_model && _keyPath) {
         if (_modelDidChangeNotificationName) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_modelDidChange:) name:_modelDidChangeNotificationName object:nil];
@@ -45,6 +39,20 @@ NSString *const P2CollectionPresentationChangeSetKey = @"changeset";
             [_model addObserver:self forKeyPath:_keyPath options:0 context:NULL];
         }
     }
+}
+
+- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath {
+    [self bindToModel:model keyPath:keyPath modelDidChangeNotificationName:nil];
+}
+
+- (void)bindToModel:(NSObject *)model keyPath:(NSString *)keyPath modelDidChangeNotificationName:(NSString *)modelDidChangeNotificationName {
+    [self _stopObservation];
+
+    _model = model;
+    _keyPath = keyPath;
+    _modelDidChangeNotificationName = modelDidChangeNotificationName;
+
+    [self _startObservation];
 
     [self _updateObjectsFromModel];
 }
